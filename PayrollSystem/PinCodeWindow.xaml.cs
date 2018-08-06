@@ -1,18 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using PayrollSystem.classes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PayrollSystem.views;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PayrollSystem
 {
@@ -27,6 +16,7 @@ namespace PayrollSystem
         }
 
         PayrollDetailsWindow payrollDetails;
+        EmployeesViews employeeViews;
 
         public PinCodeWindow(PayrollDetailsWindow pdw)
         {
@@ -34,12 +24,16 @@ namespace PayrollSystem
             InitializeComponent();
         }
 
+        public PinCodeWindow(EmployeesViews ev)
+        {
+            employeeViews = ev;
+            InitializeComponent();
+        }
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
 
             
-
         }
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
@@ -54,7 +48,17 @@ namespace PayrollSystem
                     payrollDetails.btnShowPassword.Visibility = Visibility.Hidden;
                     this.Close();
                 }
+
+                if(employeeViews != null)
+                {
+                    employeeViews.txtWage.Visibility = Visibility.Visible;
+                    employeeViews.hideWageBox.Visibility = Visibility.Hidden;
+                    employeeViews.btnHidePassword.Visibility = Visibility.Visible;
+                    employeeViews.btnShowPassword.Visibility = Visibility.Hidden;
+                    this.Close();
+                }
             }
+
         }
     }
 }

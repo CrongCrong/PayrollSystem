@@ -39,6 +39,9 @@ namespace PayrollSystem.views
             btnUpdate.Visibility = Visibility.Hidden;
             loadCompanyList();
             loadEmployeeStatus();
+            hideWageBox.Visibility = Visibility.Hidden;
+            btnHidePassword.Visibility = Visibility.Hidden;
+            btnShowPassword.Visibility = Visibility.Hidden;
             dgvEmployees.ItemsSource = loadDataGridDetails();
         }
 
@@ -53,7 +56,10 @@ namespace PayrollSystem.views
                 txtEmployeeID.Text = emp.EmployeeID;
                 txtFirstName.Text = emp.FirstName;
                 txtLastName.Text = emp.LastName;
+
                 txtWage.Text = emp.Wage;
+                hideWageBox.Password = emp.Wage;
+
                 startDate.Text = emp.StartDate;
                 txtSSS.Text = emp.SSS;
                 txtPhilHealth.Text = emp.PhilHealth;
@@ -84,6 +90,8 @@ namespace PayrollSystem.views
 
                 btnSave.Visibility = Visibility.Hidden;
                 btnUpdate.Visibility = Visibility.Visible;
+                hideWageBox.Visibility = Visibility.Visible;
+                btnShowPassword.Visibility = Visibility.Visible;
                 txtFirstName.IsEnabled = false;
                 txtLastName.IsEnabled = false;
             }
@@ -127,9 +135,11 @@ namespace PayrollSystem.views
             clearFields();
             btnUpdate.Visibility = Visibility.Hidden;
             btnSave.Visibility = Visibility.Visible;
+            hideWageBox.Visibility = Visibility.Hidden;
             txtFirstName.IsEnabled = true;
             txtLastName.IsEnabled = true;
             dgvEmployees.IsEnabled = true;
+            btnShowPassword.Visibility = Visibility.Hidden;
             
         }
 
@@ -489,9 +499,17 @@ namespace PayrollSystem.views
             CheckIsNumeric(e);
         }
 
+        private void btnShowPassword_Click(object sender, RoutedEventArgs e)
+        {
+            PinCodeWindow pinCode = new PinCodeWindow(this);
+            pinCode.ShowDialog();
+        }
+
         private void btnHidePassword_Click(object sender, RoutedEventArgs e)
         {
-
+            btnShowPassword.Visibility = Visibility.Visible;
+            btnHidePassword.Visibility = Visibility.Hidden;
+            hideWageBox.Visibility = Visibility.Visible;
         }
     }
 }
