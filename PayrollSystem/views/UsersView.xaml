@@ -37,7 +37,7 @@
         <PasswordBox x:Name="txtVerifyPassword" HorizontalAlignment="Left" Margin="575,109,0,0" VerticalAlignment="Top" Width="202" Height="28"/>
         <CheckBox x:Name="chkAdmin" Content="Admin?" HorizontalAlignment="Left" Margin="575,142,0,0" VerticalAlignment="Top" Height="28" Width="105" Checked="checkBox_Checked" Unchecked="checkBox_Unchecked" />
         <Label x:Name="lblPin" Content="PIN:" HorizontalAlignment="Left" Margin="421,175,0,0" VerticalAlignment="Top" FontSize="15" Width="154" HorizontalContentAlignment="Right"/>
-        <TextBox x:Name="txtPin" HorizontalAlignment="Left" Height="28" Margin="575,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="202" FontSize="15" FontFamily="Consolas" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtPin" HorizontalAlignment="Left" Height="28" Margin="575,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="202" FontSize="15" FontFamily="Consolas" VerticalContentAlignment="Center" PreviewTextInput="txtPin_PreviewTextInput"/>
 
     </Grid>
 </UserControl>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace PayrollSystem.views
 {
@@ -282,6 +283,21 @@ namespace PayrollSystem.views
 
             conDB.AddRecordToDatabase(queryString, parameters);
             conDB.closeConnection(); 
+        }
+
+        private void CheckIsNumeric(TextCompositionEventArgs e)
+        {
+            int result;
+
+            if (!(int.TryParse(e.Text, out result) || e.Text == "."))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtPin_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            CheckIsNumeric(e);
         }
     }
 }

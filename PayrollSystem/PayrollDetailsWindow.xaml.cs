@@ -435,7 +435,7 @@ namespace PayrollSystem
             paramsave.Add(dblTempElecBill.ToString());
             lblTotalElectBill.Content = dblTempElecBill.ToString("N0");
 
-            dblTempSSSLoan = (dblTempSSSLoan - dblTempSSSLoan2) - Convert.ToDouble(txtelecbill.Text);
+            dblTempSSSLoan = (dblTempSSSLoan - dblTempSSSLoan2) - Convert.ToDouble(txtsssloan.Text);
             paramsave.Add(dblTempSSSLoan.ToString());
             lblTotalSSSLoan.Content = dblTempSSSLoan.ToString("N0");
 

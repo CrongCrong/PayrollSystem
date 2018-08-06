@@ -12,7 +12,7 @@
                 <DataGridTextColumn Header="Employee" Binding="{Binding FullName}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True" />
                 <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True" />
                 <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True" />
-                <DataGridTextColumn Header="Net Pay" Binding="{Binding NetPay}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True" />
+                <!-- <DataGridTextColumn Header="Net Pay" Binding="{Binding NetPay}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True" /> -->
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="btnEdit" Content="Edit" HorizontalAlignment="Left" Margin="10,408,0,0"
