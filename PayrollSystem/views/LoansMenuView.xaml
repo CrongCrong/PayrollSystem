@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="PayrollSystem.views.LoansMenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PayrollSystem.views"
+             mc:Ignorable="d" FontFamily="Consolas" Loaded="UserControl_Loaded" Height="422.438" Width="896.616">
+    <Grid>
+        <Button x:Name="btnPel" Content="PEL" HorizontalAlignment="Left" Margin="203,31,0,0"
+            VerticalAlignment="Top" Width="170" Height="170" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" FontSize="24" Click="btnPel_Click" />
+        <Button x:Name="btnEml" Content="EML" HorizontalAlignment="Left" Margin="504,31,0,0"
+            VerticalAlignment="Top" Width="170" Height="170" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" FontSize="24" Click="btnEml_Click" />
+        <Button x:Name="btnGrl" Content="GRL" HorizontalAlignment="Left" Margin="203,227,0,0"
+            VerticalAlignment="Top" Width="170" Height="170" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" FontSize="24" Click="btnGrl_Click" />
+        <Button x:Name="btnPey" Content="PEY" HorizontalAlignment="Left" Margin="504,227,0,0"
+            VerticalAlignment="Top" Width="170" Height="170" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" FontSize="24" Click="btnPey_Click" />
+
+    </Grid>
+</UserControl>

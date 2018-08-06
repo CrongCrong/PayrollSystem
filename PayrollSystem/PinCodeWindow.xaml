@@ -1,0 +1,24 @@
+﻿<controls:MetroWindow x:Class="PayrollSystem.PinCodeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PayrollSystem"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        Title="PinCodeWindow" Height="281.679" Width="389.313" Loaded="MetroWindow_Loaded" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
+                <GradientStop Color="#1D2B64" Offset="0"/>
+                <GradientStop Color="#F8CDDA" Offset="0.567"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Label x:Name="label" Content="Please enter PIN:" HorizontalAlignment="Left" Margin="0,30,0,0" VerticalAlignment="Top" Width="381" 
+               HorizontalContentAlignment="Center" FontSize="30" Background="Red"/>
+        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="0,123,0,0" VerticalAlignment="Top" Width="381" FontSize="32" HorizontalContentAlignment="Center"/>
+        <Button x:Name="btnSubmit" Content="Submit" HorizontalAlignment="Left" Margin="0,179,0,0" VerticalAlignment="Top" Width="381" Height="47" Click="btnSubmit_Click"/>
+
+    </Grid>
+</controls:MetroWindow>

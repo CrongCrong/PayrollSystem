@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="PayrollSystem.views.EmployeesViews"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PayrollSystem.views"
+             mc:Ignorable="d" FontFamily="Consolas" Loaded="UserControl_Loaded" Height="478.438" Width="1181.616">
+    <Grid>
+        <DataGrid x:Name="dgvEmployees" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Height="203" Width="380" AutoGenerateColumns="False" BorderThickness="1" FontSize="16">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="First name" Binding="{Binding FirstName}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True">
+
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Last name" Binding="{Binding LastName}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True">
+
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Company" Binding="{Binding Company}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True">
+
+                </DataGridTextColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button x:Name="btnEdit" Content="Edit" HorizontalAlignment="Left" Margin="10,282,0,0" 
+                            VerticalAlignment="Top" Width="65" Height="65" Style="{DynamicResource MetroCircleButtonStyle}" Background="#2196f3" BorderBrush="Black" Click="btnEdit_Click"/>
+        <Label x:Name="label" Content="Employee ID:" HorizontalAlignment="Left" Margin="446,87,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <TextBox x:Name="txtEmployeeID" HorizontalAlignment="Left" Height="34" Margin="581,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16"/>
+        <Label x:Name="label_Copy" Content="First Name:" HorizontalAlignment="Left" Margin="446,126,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <TextBox x:Name="txtFirstName" HorizontalAlignment="Left" Height="34" Margin="581,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16"/>
+        <Label x:Name="label_Copy1" Content="Last Name:" HorizontalAlignment="Left" Margin="446,165,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <TextBox x:Name="txtLastName" HorizontalAlignment="Left" Height="34" Margin="581,165,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16"/>
+        <Label x:Name="label_Copy2" Content="Company:" HorizontalAlignment="Left" Margin="446,204,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <ComboBox x:Name="cmbCompany" HorizontalAlignment="Left" Margin="581,204,0,0" VerticalAlignment="Top" Width="201" Height="34" FontSize="16" ItemsSource="{Binding DrugstoreModel}" DisplayMemberPath="Description" SelectedValuePath="ID"/>
+        <Label x:Name="label_Copy3" Content="Wage per day:" HorizontalAlignment="Left" Margin="446,282,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <TextBox x:Name="txtWage" HorizontalAlignment="Left" Height="34" Margin="581,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16" PreviewTextInput="txtWage_PreviewTextInput"/>
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="1004,403,0,0" 
+            VerticalAlignment="Top" Width="65" Height="65" Style="{DynamicResource MetroCircleButtonStyle}" Background="#2196f3" BorderBrush="Black" Click="btnSave_Click"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="1074,403,0,0" 
+            VerticalAlignment="Top" Width="65" Height="65" Style="{DynamicResource MetroCircleButtonStyle}" Background="#2196f3" BorderBrush="Black" Click="btnCancel_Click"/>
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="1004,403,0,0" 
+            VerticalAlignment="Top" Width="65" Height="65" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" Click="btnUpdate_Click" BorderBrush="Black"/>
+        <Label x:Name="label_Copy4" Content="Start Date:" HorizontalAlignment="Left" Margin="446,48,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <DatePicker x:Name="startDate" HorizontalAlignment="Left" Margin="581,48,0,0" VerticalAlignment="Top" Height="34" Width="201" FontSize="16"/>
+        <Label x:Name="label_Copy5" Content="Status:" HorizontalAlignment="Left" Margin="446,243,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <ComboBox x:Name="cmbStatus" HorizontalAlignment="Left" Margin="581,243,0,0" VerticalAlignment="Top" Width="201" Height="34" FontSize="16" ItemsSource="{Binding DrugstoreModel}" DisplayMemberPath="Description" SelectedValuePath="ID"/>
+        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="80,282,0,0" 
+            VerticalAlignment="Top" Width="65" Height="65" Style="{DynamicResource MetroCircleButtonStyle}" Background="#2196f3" BorderBrush="Black" Click="btnDelete_Click" />
+        <Label x:Name="label_Copy6" Content="SSS:" HorizontalAlignment="Left" Margin="446,321,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <TextBox x:Name="txtSSS" HorizontalAlignment="Left" Height="34" Margin="581,321,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16" PreviewTextInput="txtSSS_PreviewTextInput"/>
+        <Label x:Name="label_Copy7" Content="Phil. health:" HorizontalAlignment="Left" Margin="446,360,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <TextBox x:Name="txtPhilHealth" HorizontalAlignment="Left" Height="34" Margin="581,360,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16" PreviewTextInput="txtPhilHealth_PreviewTextInput"/>
+        <Label x:Name="label_Copy8" Content="Pag-ibig:" HorizontalAlignment="Left" Margin="803,48,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <TextBox x:Name="txtPagibig" HorizontalAlignment="Left" Height="34" Margin="938,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16" PreviewTextInput="txtPagibig_PreviewTextInput"/>
+        <Label x:Name="label_Copy9" Content="SSS loan:" HorizontalAlignment="Left" Margin="803,87,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <TextBox x:Name="txtSSSLoan" HorizontalAlignment="Left" Height="34" Margin="938,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16" PreviewTextInput="txtSSSLoan_PreviewTextInput"/>
+        <Label x:Name="label_Copy10" Content="PEL:" HorizontalAlignment="Left" Margin="803,126,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <TextBox x:Name="txtPEL" HorizontalAlignment="Left" Height="34" Margin="938,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16" PreviewTextInput="txtPEL_PreviewTextInput"/>
+        <Label x:Name="label_Copy11" Content="EML:" HorizontalAlignment="Left" Margin="803,165,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <TextBox x:Name="txtEML" HorizontalAlignment="Left" Height="34" Margin="938,165,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16" PreviewTextInput="txtEML_PreviewTextInput"/>
+        <Label x:Name="label_Copy12" Content="GRL:" HorizontalAlignment="Left" Margin="803,204,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <TextBox x:Name="txtGRL" HorizontalAlignment="Left" Height="34" Margin="938,204,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16" PreviewTextInput="txtGRL_PreviewTextInput"/>
+        <Label x:Name="label_Copy13" Content="PEY:" HorizontalAlignment="Left" Margin="803,243,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <TextBox x:Name="txtPEY" HorizontalAlignment="Left" Height="34" Margin="938,243,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16" PreviewTextInput="txtPEY_PreviewTextInput"/>
+        <Label x:Name="label_Copy14" Content="Elec. Bill:" HorizontalAlignment="Left" Margin="803,282,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <TextBox x:Name="txtElecBill" HorizontalAlignment="Left" Height="34" Margin="938,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16" PreviewTextInput="txtElecBill_PreviewTextInput"/>
+        <Label x:Name="label_Copy15" Content="Allowance:" HorizontalAlignment="Left" Margin="803,321,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <TextBox x:Name="txtAllowance" HorizontalAlignment="Left" Height="34" Margin="938,321,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16" PreviewTextInput="txtAllowance_PreviewTextInput"/>
+
+    </Grid>
+</UserControl>

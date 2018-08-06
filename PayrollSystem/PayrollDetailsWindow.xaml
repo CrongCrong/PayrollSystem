@@ -1,0 +1,123 @@
+﻿<controls:MetroWindow x:Class="PayrollSystem.PayrollDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:PayrollSystem"
+        mc:Ignorable="d"
+        Title="Payroll Details" Height="644.809" Width="1280.66" Loaded="MetroWindow_Loaded" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
+                <GradientStop Color="#3CA55C" Offset="0"/>
+                <GradientStop Color="#B5AC49" Offset="0.567"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Label x:Name="label" Content="Date From:" HorizontalAlignment="Left" Margin="368,10,0,0" VerticalAlignment="Top" FontSize="15" Width="107" HorizontalContentAlignment="Right" Height="32"/>
+        <DatePicker x:Name="startDate" HorizontalAlignment="Left" Margin="475,10,0,0" VerticalAlignment="Top" Height="32" Width="214" FontSize="15" FontFamily="Arial"/>
+        <Label x:Name="label1" Content="Date To:" HorizontalAlignment="Left" Margin="368,47,0,0" VerticalAlignment="Top" Height="32" Width="107" FontSize="15" HorizontalContentAlignment="Right"/>
+        <DatePicker x:Name="endDate" HorizontalAlignment="Left" Margin="475,47,0,0" VerticalAlignment="Top" Height="32" Width="214" FontSize="15" FontFamily="Arial"/>
+        <Label x:Name="label1_Copy" Content="Employee:" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" Height="31" Width="107" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <ComboBox x:Name="cmbEmployees" HorizontalAlignment="Left" Margin="132,9,0,0" VerticalAlignment="Top" Width="214" Height="32" FontSize="15" ItemsSource="{Binding EmployeeModel}" DisplayMemberPath="FullName" SelectedValuePath="ID" SelectionChanged="cmbEmployees_SelectionChanged" FontFamily="Arial"/>
+        <Label x:Name="label1_Copy1" Content="Wage:" HorizontalAlignment="Left" Margin="25,46,0,0" VerticalAlignment="Top" Height="33" Width="106" FontSize="15" HorizontalContentAlignment="Right"/>
+        <TextBox x:Name="txtWage" HorizontalAlignment="Left" Height="33" Margin="132,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" FontFamily="Arial"/>
+        <Label x:Name="label1_Copy2" Content="SSS:" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Height="33" Width="122" FontSize="15" HorizontalContentAlignment="Right"/>
+        <TextBox x:Name="txtSSS" HorizontalAlignment="Left" Height="33" Margin="132,126,0,0" TextWrapping="Wrap" 
+                 controls:TextBoxHelper.Watermark="0" VerticalAlignment="Top" Width="214" FontSize="15" PreviewTextInput="txtSSS_PreviewTextInput" />
+        <Label x:Name="label1_Copy3" Content="Phil. Health:" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Height="33" Width="122" FontSize="15" HorizontalContentAlignment="Right"/>
+        <TextBox x:Name="txtphilhealth" HorizontalAlignment="Left" Height="33" Margin="132,164,0,0" 
+                 controls:TextBoxHelper.Watermark="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtphilhealth_PreviewTextInput" />
+        <Label x:Name="label1_Copy4" Content="Pag-Ibig:" HorizontalAlignment="Left" Margin="11,202,0,0" VerticalAlignment="Top" Height="33" Width="121" FontSize="15" HorizontalContentAlignment="Right"/>
+        <TextBox x:Name="txtpagibig" HorizontalAlignment="Left" Height="33" Margin="132,202,0,0" TextWrapping="Wrap" 
+                 controls:TextBoxHelper.Watermark="0" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtpagibig_PreviewTextInput"/>
+        <Label x:Name="label1_Copy5" Content="DEDUCTIONS" HorizontalAlignment="Left" Margin="336,90,0,0" VerticalAlignment="Top" Height="31" Width="118" FontSize="15" HorizontalContentAlignment="Right" FontWeight="Bold" FontFamily="Times New Roman"/>
+        <Label x:Name="label1_Copy7" Content="SSS Salary Loan:" HorizontalAlignment="Left" Margin="10,240,0,0" VerticalAlignment="Top" Height="32" Width="122" FontSize="14" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txtsssloan" HorizontalAlignment="Left" Height="32" Margin="132,240,0,0" TextWrapping="Wrap" 
+                 controls:TextBoxHelper.Watermark="0" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtsssloan_PreviewTextInput"/>
+        <Label x:Name="label1_Copy8" Content="ISAP:" HorizontalAlignment="Left" Margin="11,277,0,0" VerticalAlignment="Top" Height="32" Width="121" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txtisap" HorizontalAlignment="Left" Height="32" Margin="132,277,0,0" TextWrapping="Wrap" 
+                 controls:TextBoxHelper.Watermark="0" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtisap_PreviewTextInput"/>
+        <Label x:Name="label1_Copy9" Content="IS:" HorizontalAlignment="Left" Margin="11,314,0,0" VerticalAlignment="Top" Height="33" Width="121" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txtis" HorizontalAlignment="Left" Height="33" Margin="132,314,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtis_PreviewTextInput"/>
+        <Label x:Name="label1_Copy10" Content="PEY:" HorizontalAlignment="Left" Margin="430,240,0,0" VerticalAlignment="Top" Height="31" Width="107" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txtpey" HorizontalAlignment="Left" Height="32" Margin="537,239,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtpey_PreviewTextInput"/>
+        <Label x:Name="label1_Copy11" Content="PEL:" HorizontalAlignment="Left" Margin="430,126,0,0" VerticalAlignment="Top" Height="33" Width="107" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txtpel" HorizontalAlignment="Left" Height="33" Margin="537,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtpel_PreviewTextInput"/>
+        <Label x:Name="label1_Copy12" Content="GRL:" HorizontalAlignment="Left" Margin="430,202,0,0" VerticalAlignment="Top" Height="32" Width="107" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txtgrl" HorizontalAlignment="Left" Height="32" Margin="537,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtgrl_PreviewTextInput"/>
+        <Label x:Name="label1_Copy13" Content="EML:" HorizontalAlignment="Left" Margin="430,164,0,0" VerticalAlignment="Top" Height="33" Width="107" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txteml" HorizontalAlignment="Left" Height="33" Margin="537,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txteml_PreviewTextInput"/>
+        <Label x:Name="label1_Copy14" Content="Elec. bill:" HorizontalAlignment="Left" Margin="430,276,0,0" VerticalAlignment="Top" Height="32" Width="107" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txtelecbill" HorizontalAlignment="Left" Height="32" Margin="537,276,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtelecbill_PreviewTextInput"/>
+        <Label x:Name="label1_Copy15" Content="C.A.:" HorizontalAlignment="Left" Margin="11,352,0,0" VerticalAlignment="Top" Height="33" Width="121" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txtca" HorizontalAlignment="Left" Height="33" Margin="132,352,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtca_PreviewTextInput"/>
+        <Label x:Name="label1_Copy16" Content="Absent:" HorizontalAlignment="Left" Margin="430,313,0,0" VerticalAlignment="Top" Height="33" Width="107" HorizontalContentAlignment="Right" FontSize="15" FontFamily="Arial"/>
+        <TextBox x:Name="txtabsent" HorizontalAlignment="Left" Height="33" Margin="537,313,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtabsent_PreviewTextInput"/>
+        <Label x:Name="label2" Content="Net Pay:" HorizontalAlignment="Left" Margin="856,462,0,0" VerticalAlignment="Top" FontSize="15" FontFamily="Arial" FontWeight="Bold"/>
+        <Label x:Name="lblNetPay" Content="0" HorizontalAlignment="Left" Margin="926,462,0,0" VerticalAlignment="Top" FontSize="15" Width="176" FontFamily="Arial" FontWeight="Bold"/>
+        <Label x:Name="label1_Copy6" Content="Lates:" HorizontalAlignment="Left" Margin="430,351,0,0" VerticalAlignment="Top" Height="33" Width="107" HorizontalContentAlignment="Right" FontSize="15" FontFamily="Arial"/>
+        <TextBox x:Name="txtLates" HorizontalAlignment="Left" Height="33" Margin="537,351,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtLates_PreviewTextInput"/>
+        <Label x:Name="label1_Copy17" Content="PARTICULARS" HorizontalAlignment="Left" Margin="963,90,0,0" VerticalAlignment="Top" Height="28" Width="108" FontSize="15" HorizontalContentAlignment="Right" FontWeight="Bold" FontFamily="Times New Roman"/>
+        <Label x:Name="label1_Copy18" Content="TRIPS:" HorizontalAlignment="Left" Margin="848,126,0,0" VerticalAlignment="Top" Height="33" Width="106" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txtTrips" HorizontalAlignment="Left" Height="33" Margin="954,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtTrips_PreviewTextInput"/>
+        <Label x:Name="label1_Copy19" Content="Overtime (hours):" HorizontalAlignment="Left" Margin="824,164,0,0" VerticalAlignment="Top" Height="33" Width="130" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txtOvertimehours" HorizontalAlignment="Left" Height="33" Margin="954,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtOvertimehours_PreviewTextInput"/>
+        <Label x:Name="label1_Copy20" Content="Allowance:" HorizontalAlignment="Left" Margin="848,240,0,0" VerticalAlignment="Top" Height="31" Width="106" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txtAllowance" HorizontalAlignment="Left" Height="32" Margin="954,240,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtAllowance_PreviewTextInput"/>
+        <Label x:Name="label1_Copy21" Content="Commission:" HorizontalAlignment="Left" Margin="848,278,0,0" VerticalAlignment="Top" Height="31" Width="106" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txtCommission" HorizontalAlignment="Left" Height="32" Margin="954,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtCommission_PreviewTextInput"/>
+        <Label x:Name="label1_Copy22" Content="Undertime:" HorizontalAlignment="Left" Margin="430,389,0,0" VerticalAlignment="Top" Height="33" Width="107" HorizontalContentAlignment="Right" FontSize="15" FontFamily="Arial"/>
+        <TextBox x:Name="txtUndertime" HorizontalAlignment="Left" Height="33" Margin="537,389,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtUndertime_PreviewTextInput"/>
+        <Label x:Name="label1_Copy23" Content="Others (desc):" HorizontalAlignment="Left" Margin="10,427,0,0" VerticalAlignment="Top" Height="28" Width="121" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txtOthers" HorizontalAlignment="Left" Height="65" Margin="132,427,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15"/>
+        <Label x:Name="label1_Copy24" Content="Others (desc):" HorizontalAlignment="Left" Margin="847,353,0,0" VerticalAlignment="Top" Height="32" Width="107" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txtNotes" HorizontalAlignment="Left" Height="69" Margin="954,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15"/>
+        <Label x:Name="label1_Copy25" Content="Rate/Hr:" HorizontalAlignment="Left" Margin="694,10,0,0" VerticalAlignment="Top" Height="32" Width="151" FontSize="15" HorizontalContentAlignment="Right"/>
+        <TextBox x:Name="txtRatehr" HorizontalAlignment="Left" Height="32" Margin="845,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15"/>
+        <Button x:Name="btnCompute" Content=" Compute&#xA;  Net Pay" HorizontalAlignment="Left" Margin="995,518,0,0"
+            VerticalAlignment="Top" Width="86" Height="86" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" Click="btnCompute_Click"/>
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="1086,518,0,0"
+            VerticalAlignment="Top" Width="86" Height="86" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" Click="btnUpdate_Click" />
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="1177,518,0,0"
+            VerticalAlignment="Top" Width="86" Height="86" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" Click="btnCancel_Click" />
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="1086,518,0,0"
+            VerticalAlignment="Top" Width="86" Height="86" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" Click="btnSave_Click" />
+        <Label x:Name="label1_Copy26" Content="Work days:" HorizontalAlignment="Left" Margin="694,47,0,0" VerticalAlignment="Top" Height="32" Width="151" FontSize="15" HorizontalContentAlignment="Right"/>
+        <TextBox x:Name="txtWorkdays" HorizontalAlignment="Left" Height="32" Margin="845,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15"/>
+        <Label x:Name="label1_Copy27" Content="Overtime (total):" HorizontalAlignment="Left" Margin="824,202,0,0" VerticalAlignment="Top" Height="32" Width="130" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txtOvertimetotal" HorizontalAlignment="Left" Height="31" Margin="954,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" IsEnabled="False" FontFamily="Arial"/>
+        <Label x:Name="label1_Copy28" Content="Others:" HorizontalAlignment="Left" Margin="11,389,0,0" VerticalAlignment="Top" Height="32" Width="121" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txtothersdeduct1" HorizontalAlignment="Left" Height="33" Margin="132,389,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtothersdeduct1_PreviewTextInput" />
+        <Label x:Name="label1_Copy29" Content="Others:" HorizontalAlignment="Left" Margin="847,315,0,0" VerticalAlignment="Top" Height="33" Width="107" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
+        <TextBox x:Name="txtnotesdeduct1" HorizontalAlignment="Left" Height="33" Margin="954,315,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtnotesdeduct1_PreviewTextInput" />
+        <CheckBox x:Name="chkSSS" Content="" HorizontalAlignment="Left" Margin="351,126,0,0" VerticalAlignment="Top" Height="33" Width="119" Checked="chkSSS_Checked" Unchecked="chkSSS_Unchecked"/>
+        <CheckBox x:Name="chkPhilHealth" Content="" HorizontalAlignment="Left" Margin="351,164,0,0" VerticalAlignment="Top" Height="33" Width="119" Checked="chkPhilHealth_Checked" Unchecked="chkPhilHealth_Unchecked"/>
+        <CheckBox x:Name="chkPagibig" Content="" HorizontalAlignment="Left" Margin="351,202,0,0" VerticalAlignment="Top" Height="33" Width="119" Checked="chkPagibig_Checked" Unchecked="chkPagibig_Unchecked"/>
+        <CheckBox x:Name="chkSSSLoan" Content="" HorizontalAlignment="Left" Margin="351,240,0,0" VerticalAlignment="Top" Height="32" Width="119" Checked="chkSSSLoan_Checked" Unchecked="chkSSSLoan_Unchecked"/>
+        <CheckBox x:Name="chkPEL" Content="" HorizontalAlignment="Left" Margin="756,126,0,0" VerticalAlignment="Top" Height="33" Width="119" Checked="chkPEL_Checked" Unchecked="chkPEL_Unchecked"/>
+        <CheckBox x:Name="chkEML" Content="" HorizontalAlignment="Left" Margin="756,164,0,0" VerticalAlignment="Top" Height="33" Width="119" Checked="chkEML_Checked" Unchecked="chkEML_Unchecked"/>
+        <CheckBox x:Name="chkGRL" Content="" HorizontalAlignment="Left" Margin="756,202,0,0" VerticalAlignment="Top" Height="33" Width="119" Checked="chkGRL_Checked" Unchecked="chkGRL_Unchecked"/>
+        <CheckBox x:Name="chkPEY" Content="" HorizontalAlignment="Left" Margin="756,239,0,0" VerticalAlignment="Top" Height="33" Width="119" Checked="chkPEY_Checked" Unchecked="chkPEY_Unchecked"/>
+        <CheckBox x:Name="chkAllowance" Content="" HorizontalAlignment="Left" Margin="1173,240,0,0" VerticalAlignment="Top" Height="33" Width="90" Checked="chkAllowance_Checked" Unchecked="chkAllowance_Unchecked"/>
+        <Button x:Name="btnPrintPaySlip" Content="  Print&#xA;Payslip" HorizontalAlignment="Left" Margin="904,518,0,0"
+            VerticalAlignment="Top" Width="86" Height="86" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" Click="btnPrintPaySlip_Click" />
+        <Button x:Name="btnShowPassword" HorizontalAlignment="Left" Height="32" Margin="351,47,0,0" VerticalAlignment="Top" Width="32" Click="btnShowPassword_Click">
+            <Image Source="images/show-password.png"/>
+        </Button>
+        <PasswordBox x:Name="hideWageBox" HorizontalAlignment="Left" Margin="132,46,0,0" VerticalAlignment="Top" Height="33" Width="214"/>
+        <Button x:Name="btnHidePassword" HorizontalAlignment="Left" Height="32" Margin="351,47,0,0" VerticalAlignment="Top" Width="32" Click="btnHidePassword_Click" >
+            <Image Source="images/hide-password.png"/>
+        </Button>
+        <Label x:Name="lblTotalPEL" Content="" HorizontalAlignment="Left" Margin="132,497,0,0" VerticalAlignment="Top" Width="69" Visibility="Hidden"/>
+        <Label x:Name="lblTotalEML" Content="" HorizontalAlignment="Left" Margin="132,528,0,0" VerticalAlignment="Top" Width="69" Visibility="Hidden"/>
+        <Label x:Name="lblTotalGRL" Content="" HorizontalAlignment="Left" Margin="132,559,0,0" VerticalAlignment="Top" Width="69" Visibility="Hidden"/>
+        <Label x:Name="lblTotalPEY" Content="" HorizontalAlignment="Left" Margin="206,497,0,0" VerticalAlignment="Top" Width="69" Visibility="Hidden"/>
+        <Label x:Name="lblTotalElectBill" Content="" HorizontalAlignment="Left" Margin="206,528,0,0" VerticalAlignment="Top" Width="69" Visibility="Hidden"/>
+        <Label x:Name="lblTotalSSSLoan" Content="" HorizontalAlignment="Left" Margin="206,559,0,0" VerticalAlignment="Top" Width="69" Visibility="Hidden"/>
+        <Label x:Name="lblTotalIS" Content="" HorizontalAlignment="Left" Margin="206,559,0,0" VerticalAlignment="Top" Width="69" Visibility="Hidden"/>
+        <Label x:Name="lblTotalISAP" Content="" HorizontalAlignment="Left" Margin="206,559,0,0" VerticalAlignment="Top" Width="69" Visibility="Hidden"/>
+
+    </Grid>
+</controls:MetroWindow>
