@@ -22,6 +22,7 @@ namespace PayrollSystem.views
         ConnectionDB conDB;
         string queryString = "";
         List<string> parameters;
+        string recordID = "";
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -33,12 +34,49 @@ namespace PayrollSystem.views
 
         private void btnEditDirectSales_Click(object sender, RoutedEventArgs e)
         {
-
+            UserDisplay us = dgvUsers.SelectedItem as UserDisplay;
+            
+            if (us != null)
+            {
+                dgvUsers.IsEnabled = false;
+                btnUpdate.Visibility = Visibility.Visible;
+                txtPassword.Password = "";
+                txtVerifyPassword.Password = "";
+                recordID = us.ID; 
+                txtName.IsEnabled = false;
+                txtName.Text = us.Name;
+                txtUsername.Text = us.Username;
+                txtPassword.Password = us.Password;
+                txtVerifyPassword.Password = us.Password;
+                if (us.isAdmin)
+                {
+                    chkAdmin.IsChecked = true;
+                    txtPin.Text = us.PIN;
+                }
+                else
+                {
+                    chkAdmin.IsChecked = false;
+                }
+            }
         }
 
-        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        private async void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-
+            bool x = await checkFields();
+            bool y = false;
+            if (x)
+            {
+                y = await checkifPasswordSame();
+                if (y)
+                {
+                    updateRecord(recordID);
+                    clearFields();
+                    await window.ShowMessageAsync("UPDATE RECORD", "Record updated successfully!");
+                    dgvUsers.ItemsSource = loadDataGridDetails();
+                    dgvUsers.IsEnabled = true;
+                    btnUpdate.Visibility = Visibility.Hidden;
+                }
+            }
         }
 
         private async void btnSave_Click(object sender, RoutedEventArgs e)
@@ -62,7 +100,8 @@ namespace PayrollSystem.views
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            clearFields();
+            dgvUsers.IsEnabled = true;
         }
 
         private void checkBox_Checked(object sender, RoutedEventArgs e)
@@ -95,7 +134,7 @@ namespace PayrollSystem.views
             UserDisplay userDisp = new UserDisplay();
             List<UserDisplay> lstUserDisp = new List<UserDisplay>();
 
-            queryString = "SELECT name, username, aes_decrypt(dbfhpayroll.tbluser.password, ?) as password, isAdmin, isViewing, pincode FROM " +
+            queryString = "SELECT ID, name, username, cast(aes_decrypt(dbfhpayroll.tbluser.password, ?)as CHAR) as pas, isAdmin, isViewing, pincode FROM " +
                 "dbfhpayroll.tbluser WHERE isDeleted = 0";
             parameters = new List<string>();
             parameters.Add("sp3ctrum");
@@ -104,15 +143,17 @@ namespace PayrollSystem.views
 
             while (reader.Read())
             {
+                userDisp.ID = reader["ID"].ToString();
                 userDisp.Name = reader["name"].ToString();
                 userDisp.Username = reader["username"].ToString();
-                userDisp.Password = reader["password"].ToString();
+                userDisp.Password = reader["pas"].ToString();
                 string i = reader["isAdmin"].ToString();
                 if (i.Equals("1"))
                 {
                     userDisp.isAdmin = true;
                     userDisp.Admin = i;
-                }else
+                }
+                else
                 {
                     userDisp.isAdmin = false;
                     userDisp.Admin = i;
@@ -145,16 +186,20 @@ namespace PayrollSystem.views
             if (string.IsNullOrEmpty(txtName.Text))
             {
                 await window.ShowMessageAsync("NAME", "Please type name!");
-            }else if (string.IsNullOrEmpty(txtUsername.Text))
+            }
+            else if (string.IsNullOrEmpty(txtUsername.Text))
             {
                 await window.ShowMessageAsync("USERNAME", "Please type username!");
-            }else if(string.IsNullOrEmpty(txtPassword.Password) && string.IsNullOrEmpty(txtVerifyPassword.Password))
+            }
+            else if (string.IsNullOrEmpty(txtPassword.Password) && string.IsNullOrEmpty(txtVerifyPassword.Password))
             {
                 await window.ShowMessageAsync("PASSWORD", "Please type password!");
-            }else if (chkAdmin.IsChecked.Value && string.IsNullOrEmpty(txtPin.Text))
+            }
+            else if (chkAdmin.IsChecked.Value && string.IsNullOrEmpty(txtPin.Text))
             {
                 await window.ShowMessageAsync("PIN", "Please enter PIN!");
-            }else
+            }
+            else
             {
                 ifCorrect = true;
             }
@@ -196,7 +241,8 @@ namespace PayrollSystem.views
                 parameters.Add("1");
                 parameters.Add("1");
                 parameters.Add(txtPin.Text);
-            }else
+            }
+            else
             {
                 parameters.Add("0");
                 parameters.Add("1");
@@ -205,6 +251,37 @@ namespace PayrollSystem.views
 
             conDB.AddRecordToDatabase(queryString, parameters);
             conDB.closeConnection();
+        }
+
+        private void updateRecord(string eID)
+        {
+            conDB = new ConnectionDB();
+
+            queryString = "UPDATE dbfhpayroll.tbluser SET username = ?, password = aes_encrypt(?,?), isAdmin = ?," +
+                " isViewing = ?, pincode  = ? WHERE ID = ?";
+
+            parameters = new List<string>();
+            parameters.Add(txtUsername.Text);
+            parameters.Add(txtPassword.Password);
+            parameters.Add("sp3ctrum");
+
+            if (chkAdmin.IsChecked.Value)
+            {
+                parameters.Add("1");
+                parameters.Add("1");
+                parameters.Add(txtPin.Text);
+            }
+            else
+            {
+                parameters.Add("0");
+                parameters.Add("1");
+                parameters.Add("NULL");
+            }
+
+            parameters.Add(eID);
+
+            conDB.AddRecordToDatabase(queryString, parameters);
+            conDB.closeConnection(); 
         }
     }
 }

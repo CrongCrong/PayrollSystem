@@ -23,5 +23,7 @@ namespace PayrollSystem.classes
         public string Viewing { get; set; }
 
         public string PIN { get; set; }
+
+        public string ID { get; set; }
     }
 }

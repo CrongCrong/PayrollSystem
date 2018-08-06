@@ -488,5 +488,10 @@ namespace PayrollSystem.views
         {
             CheckIsNumeric(e);
         }
+
+        private void btnHidePassword_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -54,6 +54,13 @@ namespace PayrollSystem
         {
             if (UserModel.isViewing && !UserModel.isAdmin)
             {
+                menuEmployees.IsEnabled = false;
+                menuPayroll.IsEnabled = false;
+                menuIS.IsEnabled = false;
+                menuISAP.IsEnabled = false;
+                menuLoans.IsEnabled = false;
+                menuSSSLoan.IsEnabled = false;
+                menuElecBill.IsEnabled = false;
                 menuSettings.IsEnabled = false;
             }
         }
