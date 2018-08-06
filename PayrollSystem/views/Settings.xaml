@@ -21,6 +21,11 @@
                     <Separator />
 
                 </MenuItem>
+                <MenuItem x:Name="menuUsers" Header="Users" FontFamily="Consolas" FontSize="20" Background="#3CA55C">
+                    <MenuItem Header="_New" Click="MenuItem_Click_2" />
+                    <Separator />
+
+                </MenuItem>
             </Menu>
 
         </DockPanel>

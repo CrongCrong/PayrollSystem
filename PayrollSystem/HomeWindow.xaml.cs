@@ -52,7 +52,10 @@ namespace PayrollSystem
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-
+            if (UserModel.isViewing && !UserModel.isAdmin)
+            {
+                menuSettings.IsEnabled = false;
+            }
         }
     }
 }

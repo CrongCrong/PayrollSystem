@@ -85,6 +85,7 @@
     <Compile Include="classes\PELModel.cs" />
     <Compile Include="classes\PEYModel.cs" />
     <Compile Include="classes\SSSLoanModel.cs" />
+    <Compile Include="classes\UserDisplay.cs" />
     <Compile Include="ElecBillDetails.xaml.cs">
       <DependentUpon>ElecBillDetails.xaml</DependentUpon>
     </Compile>
@@ -159,6 +160,9 @@
     </Compile>
     <Compile Include="views\SSSLoanView.xaml.cs">
       <DependentUpon>SSSLoanView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\UsersView.xaml.cs">
+      <DependentUpon>UsersView.xaml</DependentUpon>
     </Compile>
     <Page Include="ElecBillDetails.xaml">
       <SubType>Designer</SubType>
@@ -278,6 +282,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\SSSLoanView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\UsersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

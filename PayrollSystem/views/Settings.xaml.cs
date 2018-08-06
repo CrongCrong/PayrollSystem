@@ -28,6 +28,7 @@ namespace PayrollSystem.views
 
         DepartmentView _deptView = new DepartmentView();
         EmpStatusView _empStatus = new EmpStatusView();
+        UsersView _users = new UsersView();
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -45,6 +46,11 @@ namespace PayrollSystem.views
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             content.Content = _empStatus;
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            content.Content = _users;
         }
     }
 }
