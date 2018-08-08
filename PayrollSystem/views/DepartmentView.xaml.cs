@@ -111,7 +111,7 @@ namespace PayrollSystem.views
             conDB = new ConnectionDB();
             CompanyModel company = new CompanyModel();
             List<CompanyModel> lstCompany = new List<CompanyModel>();
-            string queryString = "SELECT ID, companyname, description FROM dbfhpayroll.tblcompany WHERE isDeleted = 0";
+            string queryString = "SELECT ID, companyname, description FROM tblcompany WHERE isDeleted = 0";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
 
@@ -131,7 +131,7 @@ namespace PayrollSystem.views
         {
             conDB = new ConnectionDB();
 
-            string queryString = "INSERT INTO dbfhpayroll.tblcompany (companyname, description, isDeleted) " +
+            string queryString = "INSERT INTO tblcompany (companyname, description, isDeleted) " +
                 "VALUES (?,?,0)";
 
             List<string> parameters = new List<string>();
@@ -147,7 +147,7 @@ namespace PayrollSystem.views
         {
             conDB = new ConnectionDB();
 
-            string queryString = "UPDATE dbfhpayroll.tblcompany SET companyname = ?, description = ? WHERE ID = ?";
+            string queryString = "UPDATE tblcompany SET companyname = ?, description = ? WHERE ID = ?";
             List<string> parameters = new List<string>();
             parameters.Add(txtCompanyName.Text);
             parameters.Add(txtDescription.Text);

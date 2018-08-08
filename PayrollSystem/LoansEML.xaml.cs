@@ -40,10 +40,10 @@ namespace PayrollSystem
             List<EMLModel> lstEML = new List<EMLModel>();
             EMLModel emlMode = new EMLModel();
 
-            queryString = "SELECT dbfhpayroll.tblloanseml.ID, empID, concat(firstname, ' ', lastname) as fullname, " +
-                "sum(loans) as loans, loandate, sum(interest) as interest FROM (dbfhpayroll.tblloanseml INNER JOIN dbfhpayroll.tblemployees ON " +
-                " dbfhpayroll.tblloanseml.empID = dbfhpayroll.tblemployees.ID) " +
-                "WHERE dbfhpayroll.tblloanseml.isDeleted = 0 GROUP BY dbfhpayroll.tblloanseml.empID";
+            queryString = "SELECT tblloanseml.ID, empID, concat(firstname, ' ', lastname) as fullname, " +
+                "sum(loans) as loans, loandate, sum(interest) as interest FROM (tblloanseml INNER JOIN tblemployees ON " +
+                " tblloanseml.empID = tblemployees.ID) " +
+                "WHERE tblloanseml.isDeleted = 0 GROUP BY tblloanseml.empID";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
 
@@ -90,9 +90,9 @@ namespace PayrollSystem
 
             cmbEmployees.Items.Clear();
 
-            queryString = "SELECT dbfhpayroll.tblemployees.ID, employeeID, firstname, lastname, status, incomeperday, companyID, description FROM " +
-                "(dbfhpayroll.tblemployees INNER JOIN dbfhpayroll.tblcompany ON tblemployees.companyID = tblcompany.ID) " +
-                "WHERE dbfhpayroll.tblemployees.isDeleted = 0";
+            queryString = "SELECT tblemployees.ID, employeeID, firstname, lastname, status, incomeperday, companyID, description FROM " +
+                "(tblemployees INNER JOIN tblcompany ON tblemployees.companyID = tblcompany.ID) " +
+                "WHERE tblemployees.isDeleted = 0";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
             while (reader.Read())
@@ -119,7 +119,7 @@ namespace PayrollSystem
 
             conDB = new ConnectionDB();
 
-            queryString = "SELECT empID, sum(eml) as emlpending FROM dbfhpayroll.tblpayroll WHERE tblpayroll.isDeleted = 0 GROUP BY empID";
+            queryString = "SELECT empID, sum(eml) as emlpending FROM tblpayroll WHERE tblpayroll.isDeleted = 0 GROUP BY empID";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
 
@@ -138,7 +138,7 @@ namespace PayrollSystem
         private void saveRecord()
         {
             conDB = new ConnectionDB();
-            queryString = "INSERT INTO dbfhpayroll.tblloanseml (empID, loans, loandate, interest, isDeleted) " +
+            queryString = "INSERT INTO tblloanseml (empID, loans, loandate, interest, isDeleted) " +
                 "VALUES (?,?,?,?,0)";
 
             parameters = new List<string>();

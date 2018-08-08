@@ -42,20 +42,20 @@ namespace PayrollSystem.views
             List<PayrollModel> lstSearching = new List<PayrollModel>();
             PayrollModel payroll = new PayrollModel();
 
-            queryString = "SELECT dbfhpayroll.tblpayroll.ID, empID, dbfhpayroll.tblpayroll.startdate, enddate, sss, philhealth, pagibig, " +
+            queryString = "SELECT tblpayroll.ID, empID, tblpayroll.startdate, enddate, sss, philhealth, pagibig, " +
                 "sssloan, isap, isavings, pey, pel, grl, eml, electricbill, cashadvance, " +
                 "absent, lates, undertime, others, remarks, firstname, lastname, netpay, workdays, trips, othours, ottotal, " +
                 "allowance, commission, particularothers, deductionothers, totalpel, totaleml, totalgrl, totalpey, " +
-                "totalelectbill, totalsssloan, totalis, totalisap FROM (dbfhpayroll.tblpayroll INNER JOIN " +
-                "dbfhpayroll.tblemployees ON tblpayroll.empID = tblemployees.ID) WHERE dbfhpayroll.tblpayroll.isDeleted = 0 " +
-                "AND dbfhpayroll.tblemployees.isDeleted = 0 ";
+                "totalelectbill, totalsssloan, totalis, totalisap FROM (tblpayroll INNER JOIN " +
+                "tblemployees ON tblpayroll.empID = tblemployees.ID) WHERE tblpayroll.isDeleted = 0 " +
+                "AND tblemployees.isDeleted = 0 ";
 
             parameters = new List<string>();
            
             if (chkByDate.IsChecked.Value && (!string.IsNullOrEmpty(searchDateFrom.Text) && 
                 !string.IsNullOrEmpty(searchDateTo.Text)))
             {
-                queryString += " AND (dbfhpayroll.tblpayroll.startdate BETWEEN ? AND ? AND enddate BETWEEN ? AND ?)";
+                queryString += " AND (tblpayroll.startdate BETWEEN ? AND ? AND enddate BETWEEN ? AND ?)";
                 DateTime sdate = DateTime.Parse(searchDateFrom.Text);
                 parameters.Add(sdate.Year + "/" + sdate.Month + "/" + sdate.Day);
                 sdate = DateTime.Parse(searchDateTo.Text);
@@ -68,7 +68,7 @@ namespace PayrollSystem.views
             }
             if (chkByCompany.IsChecked.Value && cmbSearchCompany.SelectedItem != null)
             {
-                queryString += " AND (dbfhpayroll.tblemployees.companyID = ?)";
+                queryString += " AND (tblemployees.companyID = ?)";
                 parameters.Add(cmbSearchCompany.SelectedValue.ToString());
             }
             if (chkByEmployee.IsChecked.Value && cmbSearchEmployee.SelectedItem != null)
@@ -77,7 +77,7 @@ namespace PayrollSystem.views
                 parameters.Add(cmbSearchEmployee.SelectedValue.ToString());
             }
 
-            queryString += " ORDER BY dbfhpayroll.tblpayroll.startdate DESC";
+            queryString += " ORDER BY tblpayroll.startdate DESC";
          
             MySqlDataReader reader = conDB.getSelectConnection(queryString, parameters);
 
@@ -143,9 +143,9 @@ namespace PayrollSystem.views
             EmployeeModel employee = new EmployeeModel();
             cmbSearchEmployee.Items.Clear();
 
-            queryString = "SELECT dbfhpayroll.tblemployees.ID, employeeID, firstname, lastname, status, incomeperday, companyID, description FROM " +
-                "(dbfhpayroll.tblemployees INNER JOIN dbfhpayroll.tblcompany ON tblemployees.companyID = tblcompany.ID) " +
-                "WHERE dbfhpayroll.tblemployees.isDeleted = 0";
+            queryString = "SELECT tblemployees.ID, employeeID, firstname, lastname, status, incomeperday, companyID, description FROM " +
+                "(tblemployees INNER JOIN tblcompany ON tblemployees.companyID = tblcompany.ID) " +
+                "WHERE tblemployees.isDeleted = 0";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
 
@@ -171,7 +171,7 @@ namespace PayrollSystem.views
         {
             conDB = new ConnectionDB();
             cmbSearchCompany.Items.Clear();
-            queryString = "SELECT ID, companyname, description FROM dbfhpayroll.tblcompany WHERE isDeleted = 0";
+            queryString = "SELECT ID, companyname, description FROM tblcompany WHERE isDeleted = 0";
             CompanyModel company = new CompanyModel();
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
@@ -193,13 +193,13 @@ namespace PayrollSystem.views
             List<PayrollModel> lstPayroll = new List<PayrollModel>();
             PayrollModel payroll = new PayrollModel();
 
-            queryString = "SELECT dbfhpayroll.tblpayroll.ID, empID, dbfhpayroll.tblpayroll.startdate, enddate, sss, philhealth, pagibig, " +
+            queryString = "SELECT tblpayroll.ID, empID, tblpayroll.startdate, enddate, sss, philhealth, pagibig, " +
                 "sssloan, isap, isavings, pey, pel, grl, eml, electricbill, cashadvance, " +
                 "absent, lates, undertime, others, remarks, firstname, lastname, netpay, workdays, trips, othours, ottotal, " +
                 "allowance, commission, particularothers, deductionothers, totalpel, totaleml, totalgrl, totalpey, " +
-                "totalelectbill, totalsssloan, totalis, totalisap FROM (dbfhpayroll.tblpayroll INNER JOIN " +
-                "dbfhpayroll.tblemployees ON tblpayroll.empID = tblemployees.ID) WHERE dbfhpayroll.tblpayroll.isDeleted = 0 " +
-                "AND dbfhpayroll.tblemployees.isDeleted = 0 ORDER BY startdate DESC";
+                "totalelectbill, totalsssloan, totalis, totalisap FROM (tblpayroll INNER JOIN " +
+                "tblemployees ON tblpayroll.empID = tblemployees.ID) WHERE tblpayroll.isDeleted = 0 " +
+                "AND tblemployees.isDeleted = 0 ORDER BY startdate DESC";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
 

@@ -33,8 +33,8 @@ namespace PayrollSystem
             string tempStrAdmin = "";
             string tempStrViewing = "";
 
-            string queryString = "SELECT dbfhpayroll.tbluser.ID, username, aes_decrypt(dbfhpayroll.tbluser.password, ?) as pas, isAdmin, isViewing, " +
-                "pincode FROM dbfhpayroll.tbluser WHERE aes_decrypt(dbfhpayroll.tbluser.password, ?) = ? AND username = ? AND dbfhpayroll.tbluser.isDeleted = 0";
+            string queryString = "SELECT tbluser.ID, username, aes_decrypt(tbluser.password, ?) as pas, isAdmin, isViewing, " +
+                "pincode FROM tbluser WHERE aes_decrypt(tbluser.password, ?) = ? AND username = ? AND tbluser.isDeleted = 0";
 
             List<string> parameters = new List<string>();
             parameters.Add("sp3ctrum");

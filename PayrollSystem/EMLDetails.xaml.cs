@@ -42,11 +42,11 @@ namespace PayrollSystem
             lstEML = new List<EMLModel>();
             EMLModel emlMod = new EMLModel();
 
-            queryString = "SELECT dbfhpayroll.tblemployees.ID, concat(lastname,', ', firstname) as fullname, loandate, " +
-                "loans FROM (dbfhpayroll.tblemployees INNER JOIN dbfhpayroll.tblloanseml ON " +
-                "dbfhpayroll.tblemployees.ID = dbfhpayroll.tblloanseml.empID) " +
-                "WHERE dbfhpayroll.tblemployees.isDeleted = 0 AND dbfhpayroll.tblloanseml.isDeleted = 0 " +
-                "AND dbfhpayroll.tblemployees.ID = ?";
+            queryString = "SELECT tblemployees.ID, concat(lastname,', ', firstname) as fullname, loandate, " +
+                "loans FROM (tblemployees INNER JOIN tblloanseml ON " +
+                "tblemployees.ID = tblloanseml.empID) " +
+                "WHERE tblemployees.isDeleted = 0 AND tblloanseml.isDeleted = 0 " +
+                "AND tblemployees.ID = ?";
 
             parameters = new List<string>();
             parameters.Add(employeeID);
@@ -70,9 +70,9 @@ namespace PayrollSystem
         private void getPayrollPELRecord()
         {
             conDB = new ConnectionDB();
-            queryString = "SELECT empID, eml, concat(lastname,', ', firstname) as fullname, dbfhpayroll.tblpayroll.startdate" +
-                " FROM (dbfhpayroll.tblpayroll INNER JOIN dbfhpayroll.tblemployees ON dbfhpayroll.tblpayroll.empID = dbfhpayroll.tblemployees.ID)" +
-                " WHERE dbfhpayroll.tblpayroll.isDeleted = 0 AND empID = ? AND eml > 0";
+            queryString = "SELECT empID, eml, concat(lastname,', ', firstname) as fullname, tblpayroll.startdate" +
+                " FROM (tblpayroll INNER JOIN tblemployees ON tblpayroll.empID = tblemployees.ID)" +
+                " WHERE tblpayroll.isDeleted = 0 AND empID = ? AND eml > 0";
 
             parameters = new List<string>();
             parameters.Add(employeeID);

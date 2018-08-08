@@ -36,7 +36,7 @@ namespace PayrollSystem.views
             List<EmployeeStatusModel> lstEmpStatusModel = new List<EmployeeStatusModel>();
             EmployeeStatusModel emp = new EmployeeStatusModel();
 
-            queryString = "SELECT ID, status, description FROM dbfhpayroll.tblempstatus WHERE isDeleted = 0";
+            queryString = "SELECT ID, status, description FROM tblempstatus WHERE isDeleted = 0";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
 
@@ -58,7 +58,7 @@ namespace PayrollSystem.views
         {
             conDB = new ConnectionDB();
 
-            queryString = "INSERT INTO dbfhpayroll.tblempstatus (status, description, isDeleted) VALUES (?,?,0)";
+            queryString = "INSERT INTO tblempstatus (status, description, isDeleted) VALUES (?,?,0)";
             parameters = new List<string>();
 
             parameters.Add(txtEmpStatus.Text);
@@ -73,7 +73,7 @@ namespace PayrollSystem.views
         {
             conDB = new ConnectionDB();
 
-            queryString = "UPDATE dbfhpayroll.tblempstatus SET status = ?, description = ? WHERE ID = ?";
+            queryString = "UPDATE tblempstatus SET status = ?, description = ? WHERE ID = ?";
 
             parameters = new List<string>();
             parameters.Add(txtEmpStatus.Text);

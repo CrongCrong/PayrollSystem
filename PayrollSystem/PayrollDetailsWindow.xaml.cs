@@ -153,13 +153,13 @@ namespace PayrollSystem
             List<PayrollModel> lstPayroll = new List<PayrollModel>();
             PayrollModel payroll = new PayrollModel();
 
-            queryString = "SELECT dbfhpayroll.tblpayroll.ID, empID, dbfhpayroll.tblpayroll.startdate, enddate, sss, philhealth, pagibig, " +
+            queryString = "SELECT tblpayroll.ID, empID, tblpayroll.startdate, enddate, sss, philhealth, pagibig, " +
                 "sssloan, isap, isavings, pey, pel, grl, eml, electricbill, cashadvance, " +
                 "absent, lates, undertime, others, remarks, firstname, lastname, netpay, workdays, trips, othours, ottotal, " +
                 "allowance, commission, particularothers, deductionothers, totalpel, totaleml, totalgrl, totalpey, " +
-                "totalelectbill, totalsssloan, totalis, totalisap FROM (dbfhpayroll.tblpayroll INNER JOIN " +
-                "dbfhpayroll.tblemployees ON tblpayroll.empID = tblemployees.ID) WHERE dbfhpayroll.tblpayroll.isDeleted = 0 " +
-                "AND dbfhpayroll.tblemployees.isDeleted = 0 ORDER BY startdate DESC";
+                "totalelectbill, totalsssloan, totalis, totalisap FROM (tblpayroll INNER JOIN " +
+                "tblemployees ON tblpayroll.empID = tblemployees.ID) WHERE tblpayroll.isDeleted = 0 " +
+                "AND tblemployees.isDeleted = 0 ORDER BY startdate DESC";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
 
@@ -302,11 +302,11 @@ namespace PayrollSystem
             EmployeeModel employee = new EmployeeModel();
             cmbEmployees.Items.Clear();
 
-            queryString = "SELECT dbfhpayroll.tblemployees.ID, employeeID, firstname, lastname, status, incomeperday, " +
+            queryString = "SELECT tblemployees.ID, employeeID, firstname, lastname, status, incomeperday, " +
                 "companyID, empsss, empphilhealth, emppagibig, empsssloan, emppel, empeml, empgrl, emppey," +
                 " empelecbill, empallowance, description FROM " +
-                "(dbfhpayroll.tblemployees INNER JOIN dbfhpayroll.tblcompany ON tblemployees.companyID = tblcompany.ID) " +
-                "WHERE dbfhpayroll.tblemployees.isDeleted = 0";
+                "(tblemployees INNER JOIN tblcompany ON tblemployees.companyID = tblcompany.ID) " +
+                "WHERE tblemployees.isDeleted = 0";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
 
@@ -368,7 +368,7 @@ namespace PayrollSystem
 
             conDB = new ConnectionDB();
 
-            queryString = "INSERT INTO dbfhpayroll.tblpayroll (empID, startdate, enddate, sss, philhealth, pagibig, " +
+            queryString = "INSERT INTO tblpayroll (empID, startdate, enddate, sss, philhealth, pagibig, " +
                 " sssloan, isap, isavings, pey, pel, grl, eml, electricbill, cashadvance, absent, " +
                 "lates, undertime, others, remarks, netpay, ratehr, workdays, trips, othours, ottotal, " +
                 "allowance, commission, particularothers, deductionothers, totalpel, totaleml, totalgrl, " +
@@ -453,7 +453,7 @@ namespace PayrollSystem
             conDB.writeLogFile("SAVE PAYROLL RECORD: EMPLOYEE ID: " + cmbEmployees.SelectedValue.ToString() + "| DATE FROM: " +
                 startDate.Text + "| DATE TO: " + endDate.Text + "NET PAY: " + lblNetPay.Content);
 
-            MySqlDataReader reader = conDB.getSelectConnection("select ID from dbfhpayroll.tblpayroll order by ID desc limit 1", null);
+            MySqlDataReader reader = conDB.getSelectConnection("select ID from tblpayroll order by ID desc limit 1", null);
 
             while (reader.Read())
             {
@@ -467,7 +467,7 @@ namespace PayrollSystem
         {
             conDB = new ConnectionDB();
 
-            queryString = "UPDATE dbfhpayroll.tblpayroll SET startdate = ?, enddate = ?, sss = ?, philhealth = ?, pagibig = ?, " +
+            queryString = "UPDATE tblpayroll SET startdate = ?, enddate = ?, sss = ?, philhealth = ?, pagibig = ?, " +
                 "sssloan = ?, isap = ?, isavings = ?, pey = ?, pel = ?, grl = ?, eml = ?, electricbill = ?, absent = ?, " +
                 "lates = ?, undertime = ?, others = ?, remarks = ?, netpay = ?, ratehr = ?, workdays = ?, trips = ?," +
                 "othours = ?, ottotal = ?, allowance = ?, commission = ?, " +
@@ -1250,10 +1250,10 @@ namespace PayrollSystem
             conDB = new ConnectionDB();
             double dblLoan = 0;
             double dblInterest = 0;
-            queryString = "SELECT dbfhpayroll.tblloanspel.ID, empID, concat(firstname, ' ', lastname) as fullname, " +
-                "sum(loans) as loans, sum(interest) as interest FROM(dbfhpayroll.tblloanspel " +
-                "INNER JOIN dbfhpayroll.tblemployees ON dbfhpayroll.tblloanspel.empID = " +
-                "dbfhpayroll.tblemployees.ID) WHERE dbfhpayroll.tblloanspel.isDeleted = 0 AND empID = ?";
+            queryString = "SELECT tblloanspel.ID, empID, concat(firstname, ' ', lastname) as fullname, " +
+                "sum(loans) as loans, sum(interest) as interest FROM(tblloanspel " +
+                "INNER JOIN tblemployees ON tblloanspel.empID = " +
+                "tblemployees.ID) WHERE tblloanspel.isDeleted = 0 AND empID = ?";
 
             parameters = new List<string>();
             parameters.Add(eID);
@@ -1277,7 +1277,7 @@ namespace PayrollSystem
         {
             conDB = new ConnectionDB();
             double dblPending = 0;
-            queryString = "SELECT empID, sum(pel) as pelpending FROM dbfhpayroll.tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
+            queryString = "SELECT empID, sum(pel) as pelpending FROM tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
 
             parameters = new List<string>();
             parameters.Add(eID);
@@ -1299,10 +1299,10 @@ namespace PayrollSystem
             conDB = new ConnectionDB();
             double dblLoan = 0;
             double dblInterest = 0;
-            queryString = "SELECT dbfhpayroll.tblloanseml.ID, empID, concat(firstname, ' ', lastname) as fullname, " +
-                "sum(loans) as loans, loandate, sum(interest) as interest FROM (dbfhpayroll.tblloanseml INNER JOIN dbfhpayroll.tblemployees ON " +
-                " dbfhpayroll.tblloanseml.empID = dbfhpayroll.tblemployees.ID) " +
-                "WHERE dbfhpayroll.tblloanseml.isDeleted = 0 AND empID = ?";
+            queryString = "SELECT tblloanseml.ID, empID, concat(firstname, ' ', lastname) as fullname, " +
+                "sum(loans) as loans, loandate, sum(interest) as interest FROM (tblloanseml INNER JOIN tblemployees ON " +
+                " tblloanseml.empID = tblemployees.ID) " +
+                "WHERE tblloanseml.isDeleted = 0 AND empID = ?";
 
             parameters = new List<string>();
             parameters.Add(eID);
@@ -1326,7 +1326,7 @@ namespace PayrollSystem
         {
             conDB = new ConnectionDB();
             double dblPending = 0;
-            queryString = "SELECT empID, sum(eml) as emlpending FROM dbfhpayroll.tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
+            queryString = "SELECT empID, sum(eml) as emlpending FROM tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
 
             parameters = new List<string>();
             parameters.Add(eID);
@@ -1347,10 +1347,10 @@ namespace PayrollSystem
         {
             conDB = new ConnectionDB();
             double dblLoan = 0;
-            queryString = "SELECT dbfhpayroll.tblloansgrl.ID, empID, concat(firstname, ' ', lastname) as fullname, " +
-                "sum(loans) as loans, loandate FROM (dbfhpayroll.tblloansgrl INNER JOIN dbfhpayroll.tblemployees ON " +
-                " dbfhpayroll.tblloansgrl.empID = dbfhpayroll.tblemployees.ID) " +
-                "WHERE dbfhpayroll.tblloansgrl.isDeleted = 0 AND empID = ?";
+            queryString = "SELECT tblloansgrl.ID, empID, concat(firstname, ' ', lastname) as fullname, " +
+                "sum(loans) as loans, loandate FROM (tblloansgrl INNER JOIN tblemployees ON " +
+                " tblloansgrl.empID = tblemployees.ID) " +
+                "WHERE tblloansgrl.isDeleted = 0 AND empID = ?";
 
             parameters = new List<string>();
             parameters.Add(eID);
@@ -1373,7 +1373,7 @@ namespace PayrollSystem
         {
             conDB = new ConnectionDB();
             double dblPending = 0;
-            queryString = "SELECT empID, sum(grl) as grlpending FROM dbfhpayroll.tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
+            queryString = "SELECT empID, sum(grl) as grlpending FROM tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
 
             parameters = new List<string>();
             parameters.Add(eID);
@@ -1394,10 +1394,10 @@ namespace PayrollSystem
         {
             conDB = new ConnectionDB();
             double dblLoan = 0;
-            queryString = "SELECT dbfhpayroll.tblloanspey.ID, empID, concat(firstname, ' ', lastname) as fullname, " +
-                "sum(loans) as loans, loandate FROM (dbfhpayroll.tblloanspey INNER JOIN dbfhpayroll.tblemployees ON " +
-                " dbfhpayroll.tblloanspey.empID = dbfhpayroll.tblemployees.ID) " +
-                "WHERE dbfhpayroll.tblloanspey.isDeleted = 0 AND empID = ?";
+            queryString = "SELECT tblloanspey.ID, empID, concat(firstname, ' ', lastname) as fullname, " +
+                "sum(loans) as loans, loandate FROM (tblloanspey INNER JOIN tblemployees ON " +
+                " tblloanspey.empID = tblemployees.ID) " +
+                "WHERE tblloanspey.isDeleted = 0 AND empID = ?";
 
             parameters = new List<string>();
             parameters.Add(eID);
@@ -1420,7 +1420,7 @@ namespace PayrollSystem
         {
             conDB = new ConnectionDB();
             double dblPending = 0;
-            queryString = "SELECT empID, sum(pey) as peypending FROM dbfhpayroll.tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
+            queryString = "SELECT empID, sum(pey) as peypending FROM tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
 
             parameters = new List<string>();
             parameters.Add(eID);
@@ -1442,8 +1442,8 @@ namespace PayrollSystem
             conDB = new ConnectionDB();
             double dblLoan = 0;
             queryString = "SELECT tblelecbill.empid, sum(elecbill) as electricbill, concat(lastname,' , ', firstname) as fullname, " +
-                "dateadded FROM (dbfhpayroll.tblelecbill INNER JOIN dbfhpayroll.tblemployees ON " +
-                "tblelecbill.empID = tblemployees.ID) WHERE dbfhpayroll.tblelecbill.isDeleted = 0 AND empID = ?";
+                "dateadded FROM (tblelecbill INNER JOIN tblemployees ON " +
+                "tblelecbill.empID = tblemployees.ID) WHERE tblelecbill.isDeleted = 0 AND empID = ?";
 
             parameters = new List<string>();
             parameters.Add(eID);
@@ -1464,7 +1464,7 @@ namespace PayrollSystem
         {
             conDB = new ConnectionDB();
             double dblPending = 0;
-            queryString = "SELECT empID, sum(electricbill) as electricbill FROM dbfhpayroll.tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
+            queryString = "SELECT empID, sum(electricbill) as electricbill FROM tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
 
             parameters = new List<string>();
             parameters.Add(eID);
@@ -1486,8 +1486,8 @@ namespace PayrollSystem
             conDB = new ConnectionDB();
             double dblLoan = 0;
             queryString = "SELECT tblsssloan.empid, sum(sssloan) as existingsss, concat(lastname,' , ', firstname) as fullname, " +
-                "dateadded FROM (dbfhpayroll.tblsssloan INNER JOIN dbfhpayroll.tblemployees ON " +
-                "tblsssloan.empID = tblemployees.ID) WHERE dbfhpayroll.tblsssloan.isDeleted = 0 AND empID = ?";
+                "dateadded FROM (tblsssloan INNER JOIN tblemployees ON " +
+                "tblsssloan.empID = tblemployees.ID) WHERE tblsssloan.isDeleted = 0 AND empID = ?";
 
             parameters = new List<string>();
             parameters.Add(eID);
@@ -1508,7 +1508,7 @@ namespace PayrollSystem
         {
             conDB = new ConnectionDB();
             double dblPending = 0;
-            queryString = "SELECT empID, sum(sssloan) as sssloan FROM dbfhpayroll.tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
+            queryString = "SELECT empID, sum(sssloan) as sssloan FROM tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
 
             parameters = new List<string>();
             parameters.Add(eID);
@@ -1530,8 +1530,8 @@ namespace PayrollSystem
             conDB = new ConnectionDB();
             double dblLoan = 0;
             queryString = "SELECT tblintactsavings.empid, sum(existingis) as existingis, concat(lastname,' , ', firstname) as fullname," +
-                " dateadded FROM (dbfhpayroll.tblintactsavings INNER JOIN dbfhpayroll.tblemployees ON " +
-                "tblintactsavings.empID = tblemployees.ID) WHERE dbfhpayroll.tblintactsavings.isDeleted = 0 AND empID = ?";
+                " dateadded FROM (tblintactsavings INNER JOIN tblemployees ON " +
+                "tblintactsavings.empID = tblemployees.ID) WHERE tblintactsavings.isDeleted = 0 AND empID = ?";
 
             parameters = new List<string>();
             parameters.Add(eID);
@@ -1552,7 +1552,7 @@ namespace PayrollSystem
         {
             conDB = new ConnectionDB();
             double dblPending = 0;
-            queryString = "SELECT empID, sum(isavings) as isavings FROM dbfhpayroll.tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
+            queryString = "SELECT empID, sum(isavings) as isavings FROM tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
 
             parameters = new List<string>();
             parameters.Add(eID);
@@ -1574,8 +1574,8 @@ namespace PayrollSystem
             conDB = new ConnectionDB();
             double dblLoan = 0;
             queryString = "SELECT tblisap.empid, sum(existingisap) as existingisap, concat(lastname,' , ', firstname) as fullname, " +
-                "dateadded FROM (dbfhpayroll.tblisap INNER JOIN dbfhpayroll.tblemployees ON " +
-                "tblisap.empID = tblemployees.ID) WHERE dbfhpayroll.tblisap.isDeleted = 0 AND empID = ?";
+                "dateadded FROM (tblisap INNER JOIN tblemployees ON " +
+                "tblisap.empID = tblemployees.ID) WHERE tblisap.isDeleted = 0 AND empID = ?";
 
             parameters = new List<string>();
             parameters.Add(eID);
@@ -1596,7 +1596,7 @@ namespace PayrollSystem
         {
             conDB = new ConnectionDB();
             double dblPending = 0;
-            queryString = "SELECT empID, sum(isap) as isap FROM dbfhpayroll.tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
+            queryString = "SELECT empID, sum(isap) as isap FROM tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
 
             parameters = new List<string>();
             parameters.Add(eID);

@@ -42,10 +42,10 @@ namespace PayrollSystem
             lstISAP = new List<ISAPModel>();
             ISAPModel isapMod = new ISAPModel();
 
-            queryString = "SELECT dbfhpayroll.tblemployees.ID, concat(lastname,', ', firstname) as fullname, dateadded, " +
-                "existingisap FROM (dbfhpayroll.tblemployees INNER JOIN dbfhpayroll.tblisap ON " +
-                "dbfhpayroll.tblemployees.ID = dbfhpayroll.tblisap.empID) " +
-                "WHERE dbfhpayroll.tblemployees.isDeleted = 0 AND dbfhpayroll.tblisap.isDeleted = 0 AND dbfhpayroll.tblemployees.ID = ?";
+            queryString = "SELECT tblemployees.ID, concat(lastname,', ', firstname) as fullname, dateadded, " +
+                "existingisap FROM (tblemployees INNER JOIN tblisap ON " +
+                "tblemployees.ID = tblisap.empID) " +
+                "WHERE tblemployees.isDeleted = 0 AND tblisap.isDeleted = 0 AND tblemployees.ID = ?";
 
             parameters = new List<string>();
             parameters.Add(employeeID);
@@ -69,9 +69,9 @@ namespace PayrollSystem
         private void getPayrollISAPRecord()
         {
             conDB = new ConnectionDB();
-            queryString = "SELECT empID, isap, concat(lastname,', ', firstname) as fullname, dbfhpayroll.tblpayroll.startdate" +
-                " FROM (dbfhpayroll.tblpayroll INNER JOIN dbfhpayroll.tblemployees ON dbfhpayroll.tblpayroll.empID = dbfhpayroll.tblemployees.ID)" +
-                " WHERE dbfhpayroll.tblpayroll.isDeleted = 0 AND empID = ? AND isap > 0";
+            queryString = "SELECT empID, isap, concat(lastname,', ', firstname) as fullname, tblpayroll.startdate" +
+                " FROM (tblpayroll INNER JOIN tblemployees ON tblpayroll.empID = tblemployees.ID)" +
+                " WHERE tblpayroll.isDeleted = 0 AND empID = ? AND isap > 0";
 
             parameters = new List<string>();
             parameters.Add(employeeID);

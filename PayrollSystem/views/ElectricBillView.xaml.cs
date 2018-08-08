@@ -43,8 +43,8 @@ namespace PayrollSystem.views
             conDB = new ConnectionDB();
 
             queryString = "SELECT tblelecbill.empid, sum(elecbill) as electricbill, concat(lastname,' , ', firstname) as fullname, " +
-                "dateadded FROM (dbfhpayroll.tblelecbill INNER JOIN dbfhpayroll.tblemployees ON " +
-                "tblelecbill.empID = tblemployees.ID) WHERE dbfhpayroll.tblelecbill.isDeleted = 0 GROUP BY tblelecbill.empid";
+                "dateadded FROM (tblelecbill INNER JOIN tblemployees ON " +
+                "tblelecbill.empID = tblemployees.ID) WHERE tblelecbill.isDeleted = 0 GROUP BY tblelecbill.empid";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
 
@@ -79,7 +79,7 @@ namespace PayrollSystem.views
 
             conDB = new ConnectionDB();
 
-            queryString = "SELECT empID, sum(electricbill) as electricbill FROM dbfhpayroll.tblpayroll WHERE tblpayroll.isDeleted = 0 GROUP BY empID";
+            queryString = "SELECT empID, sum(electricbill) as electricbill FROM tblpayroll WHERE tblpayroll.isDeleted = 0 GROUP BY empID";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
 
@@ -102,9 +102,9 @@ namespace PayrollSystem.views
 
             cmbEmployees.Items.Clear();
 
-            queryString = "SELECT dbfhpayroll.tblemployees.ID, employeeID, firstname, lastname, status, incomeperday, companyID, description FROM " +
-                "(dbfhpayroll.tblemployees INNER JOIN dbfhpayroll.tblcompany ON tblemployees.companyID = tblcompany.ID) " +
-                "WHERE dbfhpayroll.tblemployees.isDeleted = 0";
+            queryString = "SELECT tblemployees.ID, employeeID, firstname, lastname, status, incomeperday, companyID, description FROM " +
+                "(tblemployees INNER JOIN tblcompany ON tblemployees.companyID = tblcompany.ID) " +
+                "WHERE tblemployees.isDeleted = 0";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
             while (reader.Read())
@@ -159,7 +159,7 @@ namespace PayrollSystem.views
         {
             conDB = new ConnectionDB();
 
-            queryString = "INSERT INTO dbfhpayroll.tblelecbill (empID, elecbill, dateadded, isDeleted) VALUES (?,?,?,0)";
+            queryString = "INSERT INTO tblelecbill (empID, elecbill, dateadded, isDeleted) VALUES (?,?,?,0)";
 
             parameters = new List<string>();
             parameters.Add(cmbEmployees.SelectedValue.ToString());

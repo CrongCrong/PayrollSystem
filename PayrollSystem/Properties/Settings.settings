@@ -5,5 +5,14 @@
     <Setting Name="connectionDB" Type="System.String" Scope="User">
       <Value Profile="(Default)">localhost</Value>
     </Setting>
+    <Setting Name="username" Type="System.String" Scope="User">
+      <Value Profile="(Default)">root</Value>
+    </Setting>
+    <Setting Name="password" Type="System.String" Scope="User">
+      <Value Profile="(Default)">admin</Value>
+    </Setting>
+    <Setting Name="catalog" Type="System.String" Scope="User">
+      <Value Profile="(Default)">dbfhpayroll</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

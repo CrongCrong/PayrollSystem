@@ -41,10 +41,11 @@ namespace PayrollSystem.views
             ISAPModel isap = new ISAPModel();
 
             conDB = new ConnectionDB();
+            double isapAddedByAdmin = 0;
 
             queryString = "SELECT tblisap.empid, sum(existingisap) as existingisap, concat(lastname,' , ', firstname) as fullname, " +
-                "dateadded FROM (dbfhpayroll.tblisap INNER JOIN dbfhpayroll.tblemployees ON " +
-                "tblisap.empID = tblemployees.ID) WHERE dbfhpayroll.tblisap.isDeleted = 0 GROUP BY tblisap.empid";
+                "dateadded FROM (tblisap INNER JOIN tblemployees ON " +
+                "tblisap.empID = tblemployees.ID) WHERE tblisap.isDeleted = 0 GROUP BY tblisap.empid";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
 
@@ -65,9 +66,11 @@ namespace PayrollSystem.views
                 DateTime dte = DateTime.Parse(reader["dateadded"].ToString());
                 isap.DateAdded = dte.ToShortDateString();
                 isap.CurrentISAP = current.ToString();
+                isapAddedByAdmin = isapAddedByAdmin + current;
                 lstisap.Add(isap);
                 isap = new ISAPModel();
             }
+            lblTotalISAP.Content = "Total: " + isapAddedByAdmin.ToString("N0");
             conDB.closeConnection();
             return lstisap;
         }
@@ -79,7 +82,7 @@ namespace PayrollSystem.views
 
             conDB = new ConnectionDB();
 
-            queryString = "SELECT empID, sum(isap) as isap FROM dbfhpayroll.tblpayroll WHERE tblpayroll.isDeleted = 0 GROUP BY empID";
+            queryString = "SELECT empID, sum(isap) as isap FROM tblpayroll WHERE tblpayroll.isDeleted = 0 GROUP BY empID";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
 
@@ -102,9 +105,9 @@ namespace PayrollSystem.views
 
             cmbEmployees.Items.Clear();
 
-            queryString = "SELECT dbfhpayroll.tblemployees.ID, employeeID, firstname, lastname, status, incomeperday, companyID, description FROM " +
-                "(dbfhpayroll.tblemployees INNER JOIN dbfhpayroll.tblcompany ON tblemployees.companyID = tblcompany.ID) " +
-                "WHERE dbfhpayroll.tblemployees.isDeleted = 0";
+            queryString = "SELECT tblemployees.ID, employeeID, firstname, lastname, status, incomeperday, companyID, description FROM " +
+                "(tblemployees INNER JOIN tblcompany ON tblemployees.companyID = tblcompany.ID) " +
+                "WHERE tblemployees.isDeleted = 0";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
             while (reader.Read())
@@ -159,7 +162,7 @@ namespace PayrollSystem.views
         {
             conDB = new ConnectionDB();
 
-            queryString = "INSERT INTO dbfhpayroll.tblisap (empID, existingisap, dateadded, isDeleted) VALUES (?,?,?,0)";
+            queryString = "INSERT INTO tblisap (empID, existingisap, dateadded, isDeleted) VALUES (?,?,?,0)";
             EmployeeModel emm = cmbEmployees.SelectedItem as EmployeeModel;
 
             parameters = new List<string>();

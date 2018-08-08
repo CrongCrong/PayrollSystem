@@ -42,11 +42,11 @@ namespace PayrollSystem
             lstSSSLoan = new List<SSSLoanModel>();
             SSSLoanModel sssLoan = new SSSLoanModel();
 
-            queryString = "SELECT dbfhpayroll.tblemployees.ID, concat(lastname,', ', firstname) as fullname, dateadded, " +
-                "sssloan FROM (dbfhpayroll.tblemployees INNER JOIN dbfhpayroll.tblsssloan ON " +
-                "dbfhpayroll.tblemployees.ID = dbfhpayroll.tblsssloan.empID) " +
-                "WHERE dbfhpayroll.tblemployees.isDeleted = 0 AND dbfhpayroll.tblsssloan.isDeleted = 0 " +
-                "AND dbfhpayroll.tblemployees.ID = ?";
+            queryString = "SELECT tblemployees.ID, concat(lastname,', ', firstname) as fullname, dateadded, " +
+                "sssloan FROM (tblemployees INNER JOIN tblsssloan ON " +
+                "tblemployees.ID = tblsssloan.empID) " +
+                "WHERE tblemployees.isDeleted = 0 AND tblsssloan.isDeleted = 0 " +
+                "AND tblemployees.ID = ?";
 
             parameters = new List<string>();
             parameters.Add(employeeID);
@@ -70,10 +70,10 @@ namespace PayrollSystem
         private void getPayrollSSSLoanRecord()
         {
             conDB = new ConnectionDB();
-            queryString = "SELECT empID, sssloan, concat(lastname,', ', firstname) as fullname, dbfhpayroll.tblpayroll.startdate" +
-                " FROM (dbfhpayroll.tblpayroll INNER JOIN dbfhpayroll.tblemployees ON " +
-                "dbfhpayroll.tblpayroll.empID = dbfhpayroll.tblemployees.ID)" +
-                " WHERE dbfhpayroll.tblpayroll.isDeleted = 0 AND empID = ? AND sssloan > 0";
+            queryString = "SELECT empID, sssloan, concat(lastname,', ', firstname) as fullname, tblpayroll.startdate" +
+                " FROM (tblpayroll INNER JOIN tblemployees ON " +
+                "tblpayroll.empID = tblemployees.ID)" +
+                " WHERE tblpayroll.isDeleted = 0 AND empID = ? AND sssloan > 0";
 
             parameters = new List<string>();
             parameters.Add(employeeID);

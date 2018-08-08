@@ -43,10 +43,10 @@ namespace PayrollSystem
             lstIS = new List<IntactSavingsModel>();
             IntactSavingsModel isMod = new IntactSavingsModel();
 
-            queryString = "SELECT dbfhpayroll.tblemployees.ID, concat(lastname,', ', firstname) as fullname, dateadded, " +
-                "existingIS FROM (dbfhpayroll.tblemployees INNER JOIN dbfhpayroll.tblintactsavings ON " +
-                "dbfhpayroll.tblemployees.ID = dbfhpayroll.tblintactsavings.empID) " +
-                "WHERE dbfhpayroll.tblemployees.isDeleted = 0 AND dbfhpayroll.tblintactsavings.isDeleted = 0 AND dbfhpayroll.tblemployees.ID = ?";
+            queryString = "SELECT tblemployees.ID, concat(lastname,', ', firstname) as fullname, dateadded, " +
+                "existingIS FROM (tblemployees INNER JOIN tblintactsavings ON " +
+                "tblemployees.ID = tblintactsavings.empID) " +
+                "WHERE tblemployees.isDeleted = 0 AND tblintactsavings.isDeleted = 0 AND tblemployees.ID = ?";
 
             parameters = new List<string>();
             parameters.Add(employeeID);
@@ -70,9 +70,9 @@ namespace PayrollSystem
         private void getPayrollISRecord()
         {
             conDB = new ConnectionDB();
-            queryString = "SELECT empID, isavings, concat(lastname,', ', firstname) as fullname, dbfhpayroll.tblpayroll.startdate" +
-                " FROM (dbfhpayroll.tblpayroll INNER JOIN dbfhpayroll.tblemployees ON dbfhpayroll.tblpayroll.empID = dbfhpayroll.tblemployees.ID)" +
-                " WHERE dbfhpayroll.tblpayroll.isDeleted = 0 AND empID = ? AND isavings > 0";
+            queryString = "SELECT empID, isavings, concat(lastname,', ', firstname) as fullname, tblpayroll.startdate" +
+                " FROM (tblpayroll INNER JOIN tblemployees ON tblpayroll.empID = tblemployees.ID)" +
+                " WHERE tblpayroll.isDeleted = 0 AND empID = ? AND isavings > 0";
 
             parameters = new List<string>();
             parameters.Add(employeeID);

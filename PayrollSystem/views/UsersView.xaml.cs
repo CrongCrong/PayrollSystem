@@ -135,8 +135,8 @@ namespace PayrollSystem.views
             UserDisplay userDisp = new UserDisplay();
             List<UserDisplay> lstUserDisp = new List<UserDisplay>();
 
-            queryString = "SELECT ID, name, username, cast(aes_decrypt(dbfhpayroll.tbluser.password, ?)as CHAR) as pas, isAdmin, isViewing, pincode FROM " +
-                "dbfhpayroll.tbluser WHERE isDeleted = 0";
+            queryString = "SELECT ID, name, username, cast(aes_decrypt(tbluser.password, ?)as CHAR) as pas, isAdmin, isViewing, pincode FROM " +
+                "tbluser WHERE isDeleted = 0";
             parameters = new List<string>();
             parameters.Add("sp3ctrum");
 
@@ -228,7 +228,7 @@ namespace PayrollSystem.views
         {
             conDB = new ConnectionDB();
 
-            queryString = "INSERT INTO dbfhpayroll.tbluser (name, username, password, isAdmin, isViewing, pincode, isDeleted) " +
+            queryString = "INSERT INTO tbluser (name, username, password, isAdmin, isViewing, pincode, isDeleted) " +
                 "VALUES (?,?, aes_encrypt(?,?),?,?,?,0)";
 
             parameters = new List<string>();
@@ -258,7 +258,7 @@ namespace PayrollSystem.views
         {
             conDB = new ConnectionDB();
 
-            queryString = "UPDATE dbfhpayroll.tbluser SET username = ?, password = aes_encrypt(?,?), isAdmin = ?," +
+            queryString = "UPDATE tbluser SET username = ?, password = aes_encrypt(?,?), isAdmin = ?," +
                 " isViewing = ?, pincode  = ? WHERE ID = ?";
 
             parameters = new List<string>();

@@ -28,6 +28,7 @@ namespace PayrollSystem.views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            progressRing.Visibility = Visibility.Hidden;
             btnUpdate.Visibility = Visibility.Hidden;
             loadCompanyList();
             loadEmployeeStatus();
@@ -96,10 +97,15 @@ namespace PayrollSystem.views
 
             if (x)
             {
+                progressRing.Visibility = Visibility.Visible;
+                progressRing.IsActive = true;
+
                 saveEmployeeRecord();
                 await window.ShowMessageAsync("SAVE RECORD", "Record saved successfully!");
                 clearFields();
                 dgvEmployees.ItemsSource = loadDataGridDetails();
+                progressRing.IsActive = false;
+                progressRing.Visibility = Visibility.Hidden;
             }
 
         }
@@ -236,7 +242,7 @@ namespace PayrollSystem.views
         {
             conDB = new ConnectionDB();
             cmbCompany.Items.Clear();
-            queryString = "SELECT ID, companyname, description FROM dbfhpayroll.tblcompany WHERE isDeleted = 0";
+            queryString = "SELECT ID, companyname, description FROM tblcompany WHERE isDeleted = 0";
             CompanyModel company = new CompanyModel();
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
@@ -255,7 +261,7 @@ namespace PayrollSystem.views
         private void loadEmployeeStatus()
         {
             conDB = new ConnectionDB();
-            queryString = "SELECT ID, status, description FROM dbfhpayroll.tblempstatus WHERE isDeleted = 0";
+            queryString = "SELECT ID, status, description FROM tblempstatus WHERE isDeleted = 0";
             EmployeeStatusModel empStatus = new EmployeeStatusModel();
             cmbStatus.Items.Clear();
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
@@ -278,11 +284,11 @@ namespace PayrollSystem.views
             List<EmployeeModel> lstEmployees = new List<EmployeeModel>();
             EmployeeModel employee = new EmployeeModel();
 
-            queryString = "SELECT dbfhpayroll.tblemployees.ID, employeeID, firstname, lastname, status, " +
+            queryString = "SELECT tblemployees.ID, employeeID, firstname, lastname, status, " +
                 "incomeperday, companyID, description, startdate, empsss, empphilhealth, emppagibig, empsssloan, " +
                 "emppel, empeml, empgrl, emppey, empelecbill, empallowance FROM " +
-                "(dbfhpayroll.tblemployees INNER JOIN dbfhpayroll.tblcompany ON tblemployees.companyID = tblcompany.ID) " +
-                "WHERE dbfhpayroll.tblemployees.isDeleted = 0";
+                "(tblemployees INNER JOIN tblcompany ON tblemployees.companyID = tblcompany.ID) " +
+                "WHERE tblemployees.isDeleted = 0";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
 
@@ -322,7 +328,7 @@ namespace PayrollSystem.views
         private void saveEmployeeRecord()
         {
             conDB = new ConnectionDB();
-            queryString = "INSERT INTO dbfhpayroll.tblemployees (employeeID, firstname, lastname, incomeperday, " +
+            queryString = "INSERT INTO tblemployees (employeeID, firstname, lastname, incomeperday, " +
                 " companyID, startdate, status, empsss, empphilhealth, emppagibig, empsssloan, emppel, empeml, " +
                 "empgrl, emppey, empelecbill, empallowance, isDeleted) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0)";
 
@@ -354,7 +360,7 @@ namespace PayrollSystem.views
         {
             conDB = new ConnectionDB();
 
-            queryString = "UPDATE dbfhpayroll.tblemployees SET employeeID = ?, firstname = ?, lastname = ?, incomeperday = ?, " +
+            queryString = "UPDATE tblemployees SET employeeID = ?, firstname = ?, lastname = ?, incomeperday = ?, " +
                 "companyID = ?, startdate = ?, status = ?, empsss = ?, empphilhealth = ?, emppagibig = ?, empsssloan = ?, " +
                 "emppel = ?, empeml = ?, empgrl = ?, emppey = ?, empelecbill = ?, empallowance = ? WHERE ID = ?";
 
@@ -404,7 +410,7 @@ namespace PayrollSystem.views
         {
             conDB = new ConnectionDB();
 
-            queryString = "UPDATE dbfhpayroll.tblemployees SET isDeleted = 1 WHERE ID = ?";
+            queryString = "UPDATE tblemployees SET isDeleted = 1 WHERE ID = ?";
             parameters = new List<string>();
             parameters.Add(eID);
 

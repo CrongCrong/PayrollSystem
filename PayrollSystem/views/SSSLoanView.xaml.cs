@@ -43,8 +43,8 @@ namespace PayrollSystem.views
             conDB = new ConnectionDB();
 
             queryString = "SELECT tblsssloan.empid, sum(sssloan) as existingsss, concat(lastname,' , ', firstname) as fullname, " +
-                "dateadded FROM (dbfhpayroll.tblsssloan INNER JOIN dbfhpayroll.tblemployees ON " +
-                "tblsssloan.empID = tblemployees.ID) WHERE dbfhpayroll.tblsssloan.isDeleted = 0 GROUP BY tblsssloan.empid";
+                "dateadded FROM (tblsssloan INNER JOIN tblemployees ON " +
+                "tblsssloan.empID = tblemployees.ID) WHERE tblsssloan.isDeleted = 0 GROUP BY tblsssloan.empid";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
 
@@ -79,7 +79,7 @@ namespace PayrollSystem.views
 
             conDB = new ConnectionDB();
 
-            queryString = "SELECT empID, sum(sssloan) as sssloan FROM dbfhpayroll.tblpayroll WHERE tblpayroll.isDeleted = 0 GROUP BY empID";
+            queryString = "SELECT empID, sum(sssloan) as sssloan FROM tblpayroll WHERE tblpayroll.isDeleted = 0 GROUP BY empID";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
 
@@ -102,9 +102,9 @@ namespace PayrollSystem.views
 
             cmbEmployees.Items.Clear();
 
-            queryString = "SELECT dbfhpayroll.tblemployees.ID, employeeID, firstname, lastname, status, incomeperday, companyID, description FROM " +
-                "(dbfhpayroll.tblemployees INNER JOIN dbfhpayroll.tblcompany ON tblemployees.companyID = tblcompany.ID) " +
-                "WHERE dbfhpayroll.tblemployees.isDeleted = 0";
+            queryString = "SELECT tblemployees.ID, employeeID, firstname, lastname, status, incomeperday, companyID, description FROM " +
+                "(tblemployees INNER JOIN tblcompany ON tblemployees.companyID = tblcompany.ID) " +
+                "WHERE tblemployees.isDeleted = 0";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
             while (reader.Read())
@@ -159,7 +159,7 @@ namespace PayrollSystem.views
         {
             conDB = new ConnectionDB();
 
-            queryString = "INSERT INTO dbfhpayroll.tblsssloan (empID, sssloan, dateadded, isDeleted) VALUES (?,?,?,0)";
+            queryString = "INSERT INTO tblsssloan (empID, sssloan, dateadded, isDeleted) VALUES (?,?,?,0)";
 
             parameters = new List<string>();
             parameters.Add(cmbEmployees.SelectedValue.ToString());
