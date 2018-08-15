@@ -12,7 +12,7 @@ namespace PayrollSystem.classes
     public class ConnectionDB
     {
         string myConnection = "Server=" + Properties.Settings.Default.connectionDB + "; port=3306;username=" + Properties.Settings.Default.username +
-            "; password=" + Properties.Settings.Default.password + ";convert zero datetime=True;Initial Catalog=" + Properties.Settings.Default.catalog +";";
+            "; password=" + Properties.Settings.Default.password + ";convert zero datetime=True;sslMode = none;" + "Initial Catalog=" + Properties.Settings.Default.catalog +";";
 
         public MySqlConnection myConn = new MySqlConnection();
         MySqlDataReader reader;

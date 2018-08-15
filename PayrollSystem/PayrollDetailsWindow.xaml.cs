@@ -1270,7 +1270,7 @@ namespace PayrollSystem
             }
 
             conDB.closeConnection();
-            return dblLoan + dblInterest;
+            return dblLoan;
         }
 
         private double getToBeSubtractedPEL(string eID)
@@ -1319,7 +1319,7 @@ namespace PayrollSystem
             }
 
             conDB.closeConnection();
-            return dblLoan + dblInterest;
+            return dblLoan;
         }
 
         private double getToBeSubtractedEML(string eID)
@@ -1361,8 +1361,6 @@ namespace PayrollSystem
             {
                 dblLoan = (!string.IsNullOrEmpty(reader["loans"].ToString())) ?
                      Convert.ToDouble(reader["loans"].ToString()) : 0;
-
-
             }
 
             conDB.closeConnection();

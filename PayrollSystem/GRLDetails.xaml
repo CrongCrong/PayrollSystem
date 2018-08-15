@@ -20,7 +20,13 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="FULL NAME" Binding="{Binding FullName}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True" />
                 <DataGridTextColumn Header="Date Added" Binding="{Binding LoanDate}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True" />
-                <DataGridTextColumn Header="PEL" Binding="{Binding Loan}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True" />
+                <DataGridTextColumn Header="PEL" Binding="{Binding Loan}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True">
+                    <DataGridTextColumn.CellStyle>
+                        <Style>
+                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Remarks" Binding="{Binding Remarks}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
