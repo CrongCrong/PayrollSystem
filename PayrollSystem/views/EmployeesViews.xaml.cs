@@ -42,7 +42,7 @@ namespace PayrollSystem.views
         {
             EmployeeModel emp = dgvEmployees.SelectedItem as EmployeeModel;
 
-            if(emp != null)
+            if (emp != null)
             {
                 dgvEmployees.IsEnabled = false;
                 recordToEditID = emp.ID;
@@ -64,8 +64,9 @@ namespace PayrollSystem.views
                 txtPEY.Text = emp.PEY;
                 txtElecBill.Text = emp.ElecBill;
                 txtAllowance.Text = emp.Allowance;
+                txtRegWorkingDays.Text = emp.RegWorkingDays;
 
-                foreach(CompanyModel cp in cmbCompany.Items)
+                foreach (CompanyModel cp in cmbCompany.Items)
                 {
                     if (cp.ID.Equals(emp.CompanyID))
                     {
@@ -73,7 +74,7 @@ namespace PayrollSystem.views
                     }
                 }
 
-                foreach(EmployeeStatusModel em in cmbStatus.Items)
+                foreach (EmployeeStatusModel em in cmbStatus.Items)
                 {
                     if (em.ID.Equals(emp.Status))
                     {
@@ -138,7 +139,7 @@ namespace PayrollSystem.views
             txtLastName.IsEnabled = true;
             dgvEmployees.IsEnabled = true;
             btnShowPassword.Visibility = Visibility.Hidden;
-            
+
         }
 
         private async Task<bool> checkFields()
@@ -154,22 +155,28 @@ namespace PayrollSystem.views
             else if (string.IsNullOrEmpty(txtFirstName.Text))
             {
                 await window.ShowMessageAsync("First name", "Please provide first name.");
-            }else if (string.IsNullOrEmpty(txtLastName.Text))
+            }
+            else if (string.IsNullOrEmpty(txtLastName.Text))
             {
                 await window.ShowMessageAsync("Last name", "Please provide last name.");
-            }else if(cmbCompany.SelectedItem == null)
+            }
+            else if (cmbCompany.SelectedItem == null)
             {
                 await window.ShowMessageAsync("Company", "Please select company.");
-            }else if (string.IsNullOrEmpty(txtWage.Text))
+            }
+            else if (string.IsNullOrEmpty(txtWage.Text))
             {
                 await window.ShowMessageAsync("Wage", "Please provide wage.");
-            }else if (string.IsNullOrEmpty(startDate.Text))
+            }
+            else if (string.IsNullOrEmpty(startDate.Text))
             {
                 await window.ShowMessageAsync("Date", "Please select date.");
-            }else if(cmbStatus.SelectedItem == null)
+            }
+            else if (cmbStatus.SelectedItem == null)
             {
                 await window.ShowMessageAsync("Status", "Please select employee status.");
-            }else if (string.IsNullOrEmpty(txtSSS.Text) || !ifValidFloatingNumber(txtSSS.Text))
+            }
+            else if (string.IsNullOrEmpty(txtSSS.Text) || !ifValidFloatingNumber(txtSSS.Text))
             {
                 await window.ShowMessageAsync("SSS", "Please provide valid SSS value.");
             }
@@ -209,6 +216,10 @@ namespace PayrollSystem.views
             {
                 await window.ShowMessageAsync("Allowance", "Please provide valid Allowance value.");
             }
+            else if (string.IsNullOrEmpty(txtRegWorkingDays.Text) || !ifValidFloatingNumber(txtAllowance.Text))
+            {
+                await window.ShowMessageAsync("Reg. Working Days", "Please provide valid working days value.");
+            }
             else
             {
                 bl = true;
@@ -234,6 +245,7 @@ namespace PayrollSystem.views
             txtPEY.Text = "";
             txtElecBill.Text = "";
             txtAllowance.Text = "";
+            txtRegWorkingDays.Text = "";
             cmbStatus.SelectedItem = null;
             cmbCompany.SelectedItem = null;
         }
@@ -255,7 +267,7 @@ namespace PayrollSystem.views
                 cmbCompany.Items.Add(company);
                 company = new CompanyModel();
             }
-            conDB.closeConnection();           
+            conDB.closeConnection();
         }
 
         private void loadEmployeeStatus()
@@ -273,7 +285,7 @@ namespace PayrollSystem.views
                 empStatus.Description = reader["description"].ToString();
                 cmbStatus.Items.Add(empStatus);
                 empStatus = new EmployeeStatusModel();
-               
+
             }
             conDB.closeConnection();
         }
@@ -286,7 +298,7 @@ namespace PayrollSystem.views
 
             queryString = "SELECT tblemployees.ID, employeeID, firstname, lastname, status, " +
                 "incomeperday, companyID, description, startdate, empsss, empphilhealth, emppagibig, empsssloan, " +
-                "emppel, empeml, empgrl, emppey, empelecbill, empallowance FROM " +
+                "emppel, empeml, empgrl, emppey, empelecbill, empallowance, regworkingdays FROM " +
                 "(tblemployees INNER JOIN tblcompany ON tblemployees.companyID = tblcompany.ID) " +
                 "WHERE tblemployees.isDeleted = 0";
 
@@ -316,6 +328,7 @@ namespace PayrollSystem.views
                 employee.PEY = reader["emppey"].ToString();
                 employee.ElecBill = reader["empelecbill"].ToString();
                 employee.Allowance = reader["empallowance"].ToString();
+                employee.RegWorkingDays = reader["regworkingdays"].ToString();
                 lstEmployees.Add(employee);
                 employee = new EmployeeModel();
 
@@ -330,7 +343,7 @@ namespace PayrollSystem.views
             conDB = new ConnectionDB();
             queryString = "INSERT INTO tblemployees (employeeID, firstname, lastname, incomeperday, " +
                 " companyID, startdate, status, empsss, empphilhealth, emppagibig, empsssloan, emppel, empeml, " +
-                "empgrl, emppey, empelecbill, empallowance, isDeleted) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0)";
+                "empgrl, emppey, empelecbill, empallowance, regworkingdays, isDeleted) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0)";
 
             parameters = new List<string>();
             parameters.Add(txtEmployeeID.Text);
@@ -351,8 +364,9 @@ namespace PayrollSystem.views
             parameters.Add(txtPEY.Text);
             parameters.Add(txtElecBill.Text);
             parameters.Add(txtAllowance.Text);
+            parameters.Add(txtRegWorkingDays.Text);
             conDB.AddRecordToDatabase(queryString, parameters);
-            conDB.writeLogFile("SAVE EMPLOYEE RECORD: " + "Employee name: " + txtFirstName.Text + " " 
+            conDB.writeLogFile("SAVE EMPLOYEE RECORD: " + "Employee name: " + txtFirstName.Text + " "
                 + txtLastName.Text);
         }
 
@@ -362,7 +376,7 @@ namespace PayrollSystem.views
 
             queryString = "UPDATE tblemployees SET employeeID = ?, firstname = ?, lastname = ?, incomeperday = ?, " +
                 "companyID = ?, startdate = ?, status = ?, empsss = ?, empphilhealth = ?, emppagibig = ?, empsssloan = ?, " +
-                "emppel = ?, empeml = ?, empgrl = ?, emppey = ?, empelecbill = ?, empallowance = ? WHERE ID = ?";
+                "emppel = ?, empeml = ?, empgrl = ?, emppey = ?, empelecbill = ?, empallowance = ?, regworkingdays = ? WHERE ID = ?";
 
             parameters = new List<string>();
 
@@ -384,6 +398,7 @@ namespace PayrollSystem.views
             parameters.Add(txtPEY.Text);
             parameters.Add(txtElecBill.Text);
             parameters.Add(txtAllowance.Text);
+            parameters.Add(txtRegWorkingDays.Text);
             parameters.Add(ID);
 
             conDB.AddRecordToDatabase(queryString, parameters);
@@ -497,6 +512,11 @@ namespace PayrollSystem.views
             CheckIsNumeric(e);
         }
 
+        private void txtRegWorkingDays_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            CheckIsNumeric(e);
+        }
+
         private void btnShowPassword_Click(object sender, RoutedEventArgs e)
         {
             PinCodeWindow pinCode = new PinCodeWindow(this);
@@ -509,5 +529,7 @@ namespace PayrollSystem.views
             btnHidePassword.Visibility = Visibility.Hidden;
             hideWageBox.Visibility = Visibility.Visible;
         }
+
+
     }
 }

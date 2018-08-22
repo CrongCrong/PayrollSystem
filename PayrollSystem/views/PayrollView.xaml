@@ -29,6 +29,10 @@
         <DatePicker x:Name="searchDateFrom" HorizontalAlignment="Left" Margin="157,62,0,0" VerticalAlignment="Top" Height="35" FontSize="16" Width="214"/>
         <Label x:Name="label" Content="-" HorizontalAlignment="Left" Margin="371,62,0,0" VerticalAlignment="Top" Height="35" Width="19" FontSize="16"/>
         <DatePicker x:Name="searchDateTo" HorizontalAlignment="Left" Margin="390,62,0,0" VerticalAlignment="Top" Height="35" FontSize="16" Width="214"/>
+        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="101,408,0,0"
+            VerticalAlignment="Top" Width="86" Height="86" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" Click="btnDelete_Click" />
+        <Button x:Name="btnReport" Content="Report" HorizontalAlignment="Left" Margin="192,408,0,0"
+            VerticalAlignment="Top" Width="86" Height="86" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" Click="btnReport_Click" />
 
     </Grid>
 </UserControl>

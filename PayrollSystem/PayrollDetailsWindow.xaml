@@ -20,7 +20,7 @@
         <Label x:Name="label1" Content="Date To:" HorizontalAlignment="Left" Margin="368,47,0,0" VerticalAlignment="Top" Height="32" Width="107" FontSize="15" HorizontalContentAlignment="Right"/>
         <DatePicker x:Name="endDate" HorizontalAlignment="Left" Margin="475,47,0,0" VerticalAlignment="Top" Height="32" Width="214" FontSize="15" FontFamily="Arial"/>
         <Label x:Name="label1_Copy" Content="Employee:" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" Height="31" Width="107" FontSize="15" HorizontalContentAlignment="Right" FontFamily="Arial"/>
-        <ComboBox x:Name="cmbEmployees" HorizontalAlignment="Left" Margin="132,9,0,0" VerticalAlignment="Top" Width="214" Height="32" FontSize="15" ItemsSource="{Binding EmployeeModel}" DisplayMemberPath="FullName" SelectedValuePath="ID" SelectionChanged="cmbEmployees_SelectionChanged" FontFamily="Arial"/>
+        <ComboBox x:Name="cmbEmployees" HorizontalAlignment="Left" Margin="132,0,0,574.2" VerticalAlignment="Bottom" Width="214" Height="32" FontSize="15" ItemsSource="{Binding EmployeeModel}" DisplayMemberPath="FullName" SelectedValuePath="ID" SelectionChanged="cmbEmployees_SelectionChanged" FontFamily="Arial"/>
         <Label x:Name="label1_Copy1" Content="Wage:" HorizontalAlignment="Left" Margin="25,46,0,0" VerticalAlignment="Top" Height="33" Width="106" FontSize="15" HorizontalContentAlignment="Right"/>
         <TextBox x:Name="txtWage" HorizontalAlignment="Left" Height="33" Margin="132,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" FontFamily="Arial"/>
         <Label x:Name="label1_Copy2" Content="SSS:" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Height="33" Width="122" FontSize="15" HorizontalContentAlignment="Right"/>
@@ -76,13 +76,11 @@
         <TextBox x:Name="txtNotes" HorizontalAlignment="Left" Height="69" Margin="954,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15"/>
         <Label x:Name="label1_Copy25" Content="Rate/Hr:" HorizontalAlignment="Left" Margin="694,10,0,0" VerticalAlignment="Top" Height="32" Width="151" FontSize="15" HorizontalContentAlignment="Right"/>
         <TextBox x:Name="txtRatehr" HorizontalAlignment="Left" Height="32" Margin="845,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15"/>
-        <Button x:Name="btnCompute" Content=" Compute&#xA;  Net Pay" HorizontalAlignment="Left" Margin="995,518,0,0"
+        <Button x:Name="btnCompute" Content=" Compute&#xA;  Net Pay" HorizontalAlignment="Left" Margin="1087,519,0,0"
             VerticalAlignment="Top" Width="86" Height="86" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" Click="btnCompute_Click"/>
-        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="1086,518,0,0"
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="1178,519,0,0"
             VerticalAlignment="Top" Width="86" Height="86" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" Click="btnUpdate_Click" />
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="1177,518,0,0"
-            VerticalAlignment="Top" Width="86" Height="86" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" Click="btnCancel_Click" />
-        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="1086,518,0,0"
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="1178,519,0,0"
             VerticalAlignment="Top" Width="86" Height="86" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" Click="btnSave_Click" />
         <Label x:Name="label1_Copy26" Content="Work days:" HorizontalAlignment="Left" Margin="694,47,0,0" VerticalAlignment="Top" Height="32" Width="151" FontSize="15" HorizontalContentAlignment="Right"/>
         <TextBox x:Name="txtWorkdays" HorizontalAlignment="Left" Height="32" Margin="845,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15"/>
@@ -101,7 +99,7 @@
         <CheckBox x:Name="chkGRL" Content="" HorizontalAlignment="Left" Margin="756,202,0,0" VerticalAlignment="Top" Height="33" Width="119" Checked="chkGRL_Checked" Unchecked="chkGRL_Unchecked"/>
         <CheckBox x:Name="chkPEY" Content="" HorizontalAlignment="Left" Margin="756,239,0,0" VerticalAlignment="Top" Height="33" Width="119" Checked="chkPEY_Checked" Unchecked="chkPEY_Unchecked"/>
         <CheckBox x:Name="chkAllowance" Content="" HorizontalAlignment="Left" Margin="1173,240,0,0" VerticalAlignment="Top" Height="33" Width="90" Checked="chkAllowance_Checked" Unchecked="chkAllowance_Unchecked"/>
-        <Button x:Name="btnPrintPaySlip" Content="  Print&#xA;Payslip" HorizontalAlignment="Left" Margin="904,518,0,0"
+        <Button x:Name="btnPrintPaySlip" Content="  Print&#xA;Payslip" HorizontalAlignment="Left" Margin="996,519,0,0"
             VerticalAlignment="Top" Width="86" Height="86" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" Click="btnPrintPaySlip_Click" />
         <Button x:Name="btnShowPassword" HorizontalAlignment="Left" Height="32" Margin="351,47,0,0" VerticalAlignment="Top" Width="32" Click="btnShowPassword_Click">
             <Image Source="images/show-password.png"/>

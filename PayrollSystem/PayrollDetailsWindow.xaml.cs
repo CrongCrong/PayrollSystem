@@ -93,6 +93,8 @@ namespace PayrollSystem
                 txtAllowance.Text = payrollModel.Allowance;
                 txtCommission.Text = payrollModel.Commission;
                 txtNotes.Text = payrollModel.Remarks;
+                txtothersdeduct1.Text = payrollModel.DeductionOthers;
+                txtnotesdeduct1.Text = payrollModel.ParticularOthers;
                 //txtOvertimehours.Text = payrollModel.OTHours;
                 //txtOvertimetotal.Text = payrollModel.OTTotal;
                 lblNetPay.Content = payrollModel.NetPay;
@@ -141,6 +143,7 @@ namespace PayrollSystem
                 txtpey.Text = selectedEmployee.PEY;
                 txtelecbill.Text = selectedEmployee.ElecBill;
                 txtAllowance.Text = selectedEmployee.Allowance;
+                txtWorkdays.Text = selectedEmployee.RegWorkingDays;
                 EnableDisableValueControls(true);
                 btnUpdate.Visibility = Visibility.Hidden;
                 btnSave.Visibility = Visibility.Visible;
@@ -304,7 +307,7 @@ namespace PayrollSystem
 
             queryString = "SELECT tblemployees.ID, employeeID, firstname, lastname, status, incomeperday, " +
                 "companyID, empsss, empphilhealth, emppagibig, empsssloan, emppel, empeml, empgrl, emppey," +
-                " empelecbill, empallowance, description FROM " +
+                " empelecbill, empallowance, description, regworkingdays FROM " +
                 "(tblemployees INNER JOIN tblcompany ON tblemployees.companyID = tblcompany.ID) " +
                 "WHERE tblemployees.isDeleted = 0";
 
@@ -331,6 +334,7 @@ namespace PayrollSystem
                 employee.PEY = reader["emppey"].ToString();
                 employee.ElecBill = reader["empelecbill"].ToString();
                 employee.Allowance = reader["empallowance"].ToString();
+                employee.RegWorkingDays = reader["regworkingdays"].ToString();
                 cmbEmployees.Items.Add(employee);
                 employee = new EmployeeModel();
             }
@@ -703,11 +707,6 @@ namespace PayrollSystem
                 //btnSave.Visibility = Visibility.Hidden;
                 //btnUpdate.Visibility = Visibility.Visible;
             }
-        }
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private async Task<bool> checkFields()

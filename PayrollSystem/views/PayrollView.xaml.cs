@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using MahApps.Metro.Controls.Dialogs;
+using MySql.Data.MySqlClient;
 using PayrollSystem.classes;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace PayrollSystem.views
         string queryString = "";
         List<string> parameters;
         string employeeID = "";
+        MahApps.Metro.Controls.MetroWindow window;
 
         //MahApps.Metro.Controls.MetroWindow window;
 
@@ -187,6 +189,22 @@ namespace PayrollSystem.views
             conDB.closeConnection();
         }
 
+        private void deleteRecord(string rID)
+        {
+            conDB = new ConnectionDB();
+
+            queryString = "UPDATE tblpayroll SET isDeleted = 1 WHERE ID = ?";
+
+            parameters = new List<string>();
+
+            parameters.Add(rID);
+
+            conDB.AddRecordToDatabase(queryString, parameters);
+
+            conDB.closeConnection();
+           
+        }
+
         private List<PayrollModel> loadDataGridDetails()
         {
             conDB = new ConnectionDB();
@@ -315,6 +333,32 @@ namespace PayrollSystem.views
             searchDateFrom.Text = "";
             searchDateTo.Text = "";
 
+        }
+
+        private async void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            window = Window.GetWindow(this) as MahApps.Metro.Controls.MetroWindow;
+
+            PayrollModel pm = dgvEmployees.SelectedItem as PayrollModel;
+
+            if (pm != null)
+            {
+                MessageDialogResult result = await window.ShowMessageAsync("Delete Payroll", "Are you sure you want to delete payroll?", MessageDialogStyle.AffirmativeAndNegative);
+
+                if (result.Equals(MessageDialogResult.Affirmative))
+                {
+                    deleteRecord(pm.ID);
+                    dgvEmployees.ItemsSource = loadDataGridDetails();
+                    await window.ShowMessageAsync("Delete Record", "Record deleted successfully!");
+                    conDB.writeLogFile("DELETE EMPLOYEE PAYROLL:  ID: " + pm.ID);
+                }
+            }
+        }
+
+        private void btnReport_Click(object sender, RoutedEventArgs e)
+        {
+            PayrollReport pr = new PayrollReport();
+            pr.ShowDialog();
         }
     }
 }

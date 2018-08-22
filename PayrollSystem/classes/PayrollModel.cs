@@ -99,5 +99,10 @@ namespace PayrollSystem.classes
         public string TotalPEY { get; set; }
 
         public string TotalSSSLoan { get; set; }
+
+        public string RateWeek { get; set; }
+
+        public string GrossReport { get; set; }
+
     }
 }

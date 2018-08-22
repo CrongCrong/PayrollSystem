@@ -49,5 +49,7 @@ namespace PayrollSystem.classes
 
         public string Allowance { get; set; }
 
+        public string RegWorkingDays { get; set; }
+
     }
 }

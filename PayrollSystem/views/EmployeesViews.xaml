@@ -36,11 +36,11 @@
         <ComboBox x:Name="cmbCompany" HorizontalAlignment="Left" Margin="549,205,0,0" VerticalAlignment="Top" Width="201" Height="34" FontSize="16" ItemsSource="{Binding DrugstoreModel}" DisplayMemberPath="Description" SelectedValuePath="ID"/>
         <Label x:Name="label_Copy3" Content="Wage per day:" HorizontalAlignment="Left" Margin="414,283,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
         <TextBox x:Name="txtWage" HorizontalAlignment="Left" Height="34" Margin="549,283,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16" PreviewTextInput="txtWage_PreviewTextInput"/>
-        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="1004,403,0,0" 
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="1004,400,0,0" 
             VerticalAlignment="Top" Width="65" Height="65" Style="{DynamicResource MetroCircleButtonStyle}" Background="#2196f3" BorderBrush="Black" Click="btnSave_Click"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="1074,403,0,0" 
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="1074,400,0,0" 
             VerticalAlignment="Top" Width="65" Height="65" Style="{DynamicResource MetroCircleButtonStyle}" Background="#2196f3" BorderBrush="Black" Click="btnCancel_Click"/>
-        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="1004,403,0,0" 
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="1004,400,0,0" 
             VerticalAlignment="Top" Width="65" Height="65" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" Click="btnUpdate_Click" BorderBrush="Black"/>
         <Label x:Name="label_Copy4" Content="Start Date:" HorizontalAlignment="Left" Margin="414,48,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
         <DatePicker x:Name="startDate" HorizontalAlignment="Left" Margin="549,48,0,0" VerticalAlignment="Top" Height="34" Width="201" FontSize="16"/>
@@ -77,6 +77,8 @@
             <Image Source="../images/hide-password.png"/>
         </Button>
         <controls:ProgressRing Name="progressRing" Foreground="{DynamicResource AccentColorBrush}"/>
+        <Label x:Name="label_Copy16" Content="Reg. Working days:" HorizontalAlignment="Left" Margin="803,361,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="13" Background="#3CA55C"/>
+        <TextBox x:Name="txtRegWorkingDays" HorizontalAlignment="Left" Height="34" Margin="938,361,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16" PreviewTextInput="txtRegWorkingDays_PreviewTextInput" />
 
     </Grid>
 </UserControl>

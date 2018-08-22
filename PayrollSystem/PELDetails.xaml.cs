@@ -42,7 +42,7 @@ namespace PayrollSystem
             lstPEL = new List<PELModel>();
             PELModel pelMod = new PELModel();
 
-            queryString = "SELECT dbfhproll.tblemployees.ID, concat(lastname,', ', firstname) as fullname, loandate, " +
+            queryString = "SELECT tblemployees.ID, concat(lastname,', ', firstname) as fullname, loandate, " +
                 "loans, interest FROM (tblemployees INNER JOIN tblloanspel ON " +
                 "tblemployees.ID = tblloanspel.empID) " +
                 "WHERE tblemployees.isDeleted = 0 AND tblloanspel.isDeleted = 0 " +
