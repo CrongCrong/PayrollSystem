@@ -118,6 +118,7 @@
     <Compile Include="classes\GRLModel.cs" />
     <Compile Include="classes\IntactSavingsModel.cs" />
     <Compile Include="classes\ISAPModel.cs" />
+    <Compile Include="classes\ParametersReportModel.cs" />
     <Compile Include="classes\PayrollModel.cs" />
     <Compile Include="classes\PELModel.cs" />
     <Compile Include="classes\PEYModel.cs" />

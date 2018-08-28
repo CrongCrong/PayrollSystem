@@ -21,6 +21,8 @@ namespace PayrollSystem
         ConnectionDB conDB;
         string queryString = "";
         List<string> parameters;
+        ParametersReportModel paramReport = new ParametersReportModel();
+
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -31,15 +33,17 @@ namespace PayrollSystem
             cmbMonths.IsEnabled = false;
             fillMonths();
             loadCompanyList();
-            loadCompanyList();
+            loadEmployeesList();
         }
 
         private void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
-            string cmpName = (cmbSearchCompany.SelectedItem != null) ? cmbSearchCompany.SelectedValue.ToString() : "SPECTRUM GROUP OF COMPANIES";
-            
-            string dtePeriod = (!string.IsNullOrEmpty(cmbMonths.SelectedValue.ToString())) ? cmbMonths.SelectedValue.ToString() + " " +  DateTime.Now.Year : "NO MONTHS SELECTED";
-            ReportForm rf = new ReportForm(getReport(), cmpName, dtePeriod);
+            CompanyModel cm = cmbSearchCompany.SelectedItem as CompanyModel;
+
+            string cmpName = (cm != null) ? cm.CompanyName : "SPECTRUM GROUP OF COMPANIES";
+
+            string dtePeriod = (cmbMonths.SelectedItem != null) ? cmbMonths.SelectedValue.ToString() + " " + DateTime.Now.Year : "NO MONTHS SELECTED";
+            ReportForm rf = new ReportForm(getReport(), cmpName, dtePeriod, paramReport);
             rf.ShowDialog();
         }
 
@@ -47,6 +51,7 @@ namespace PayrollSystem
         {
             PayrollModel pm = new PayrollModel();
             List<PayrollModel> lstPayrollReport = new List<PayrollModel>();
+            double dblTGross = 0;
 
             conDB = new ConnectionDB();
             queryString = "SELECT tblpayroll.ID, empID, incomeperday, regworkingdays, tblpayroll.startdate, enddate, sum(sss) as tsss," +
@@ -76,6 +81,16 @@ namespace PayrollSystem
                 parameters.Add(sdate.Year + "/" + sdate.Month + "/" + sdate.Day);
                 sdate = DateTime.Parse(searchDateTo.Text);
                 parameters.Add(sdate.Year + "/" + sdate.Month + "/" + sdate.Day);
+            }
+            if (chkByCompany.IsChecked.Value && cmbSearchCompany.SelectedItem != null)
+            {
+                queryString += " AND (tblemployees.companyID = ?)";
+                parameters.Add(cmbSearchCompany.SelectedValue.ToString());
+            }
+            if (chkByEmployee.IsChecked.Value && cmbSearchEmployee.SelectedItem != null)
+            {
+                queryString += " AND (empID =?)";
+                parameters.Add(cmbSearchEmployee.SelectedValue.ToString());
             }
 
             queryString += " GROUP BY tblpayroll.empID";
@@ -115,8 +130,36 @@ namespace PayrollSystem
                 pm.DeductionOthers = reader["tdeductionothers"].ToString();
 
                 double x = ((dblworkdays * dblWge) * 4);
+
+                //paramReport.TotalGross += paramReport.TotalGross + x;
+                
+                paramReport.TotalSalary += x;
+                paramReport.TotalOT += Convert.ToDouble(pm.OTTotal);
+                paramReport.TotalAllowance += Convert.ToDouble(pm.Allowance);
+                paramReport.TotalCommission += Convert.ToDouble(pm.Commission);
+                paramReport.TotalAbsent += Convert.ToDouble(pm.Absent);
+                paramReport.TotalLates += Convert.ToDouble(pm.Lates);
+                paramReport.TotalUndertime += Convert.ToDouble(pm.Undertime);
+                paramReport.TotalCashAdvance += Convert.ToDouble(pm.CashAdvance);
+                paramReport.TotalGRL += Convert.ToDouble(pm.GRL);
+                paramReport.TotalPEL += Convert.ToDouble(pm.PEL);
+                paramReport.TotalEML += Convert.ToDouble(pm.EML);
+                paramReport.TotalPEY += Convert.ToDouble(pm.PEY);
+                paramReport.TotalISAP += Convert.ToDouble(pm.ISAP);
+                paramReport.TotalIS += Convert.ToDouble(pm.IS);
+                paramReport.TotalElectBill += Convert.ToDouble(pm.ElecBill);
+                paramReport.TotalSSSLoan += Convert.ToDouble(pm.SSSLoan);
+                paramReport.TotalDeductionOthers += Convert.ToDouble(pm.DeductionOthers);
+                paramReport.TotalParticularOthers += Convert.ToDouble(pm.ParticularOthers);
+                paramReport.TotalSSS += Convert.ToDouble(pm.SSS);
+                paramReport.TotalPagibig += Convert.ToDouble(pm.PagIbig);
+                paramReport.TotalPhilHealth += Convert.ToDouble(pm.PhilHealth);
+
                 pm.Wage = (x + Convert.ToDouble(pm.OTTotal) + Convert.ToDouble(pm.Allowance)
                     + Convert.ToDouble(pm.Commission) + Convert.ToDouble(pm.ParticularOthers)).ToString("N0");
+
+                dblTGross = dblTGross + Convert.ToDouble(pm.Wage);
+                paramReport.TotalGross = dblTGross;
 
                 pm.TotalDeductions = (Convert.ToDouble(pm.Absent) + Convert.ToDouble(pm.Lates) + Convert.ToDouble(pm.Undertime) +
                     Convert.ToDouble(pm.CashAdvance) + Convert.ToDouble(pm.GRL) + Convert.ToDouble(pm.PEL) + Convert.ToDouble(pm.EML) +
@@ -125,16 +168,20 @@ namespace PayrollSystem
 
                 pm.NetPay = (Convert.ToDouble(pm.Wage) + Convert.ToDouble(pm.TotalDeductions)).ToString("N0");
 
+                paramReport.TotalDeductions += Convert.ToDouble(pm.TotalDeductions);
                 lstPayrollReport.Add(pm);
                 pm = new PayrollModel();
             }
+            paramReport.TotalNetDeductions  = paramReport.TotalDeductions + paramReport.TotalSSS +
+                paramReport.TotalPhilHealth + paramReport.TotalPagibig;
 
+            paramReport.TotalPayroll = paramReport.TotalGross - paramReport.TotalNetDeductions;
             return lstPayrollReport;
         }
 
         private void fillMonths()
         {
-            foreach(string s in CultureInfo.InvariantCulture.DateTimeFormat.MonthNames)
+            foreach (string s in CultureInfo.InvariantCulture.DateTimeFormat.MonthNames)
             {
                 cmbMonths.Items.Add(s);
             }
@@ -213,6 +260,7 @@ namespace PayrollSystem
         private void chkByCompany_Unchecked(object sender, RoutedEventArgs e)
         {
             cmbSearchCompany.IsEnabled = false;
+            cmbSearchCompany.SelectedItem = null;
         }
 
         private void chkByEmployee_Checked(object sender, RoutedEventArgs e)
@@ -223,6 +271,7 @@ namespace PayrollSystem
         private void chkByEmployee_Unchecked(object sender, RoutedEventArgs e)
         {
             cmbSearchEmployee.IsEnabled = false;
+            cmbSearchEmployee.SelectedItem = null;
         }
     }
 }
