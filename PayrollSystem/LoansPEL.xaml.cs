@@ -40,7 +40,7 @@ namespace PayrollSystem
             conDB = new ConnectionDB();
             List<PELModel> lstPEL = new List<PELModel>();
             PELModel pelMod = new PELModel();
-
+            double isAddedByAdmin = 0;
             queryString = "SELECT tblloanspel.ID, empID, concat(firstname, ' ', lastname) as fullname, " +
                 "sum(loans) as loans, loandate, sum(interest) as interest FROM (tblloanspel INNER JOIN tblemployees ON " +
                 " tblloanspel.empID = tblemployees.ID) " +
@@ -61,7 +61,7 @@ namespace PayrollSystem
                 pelMod.TotalLoan = (Convert.ToDouble(pelMod.Loan) +
                     Convert.ToDouble(pelMod.Interest)).ToString();
                 pelMod.LoanDate = dte.ToShortDateString();
-
+                double current = 0;
                 foreach (PELModel p in lstPendingPEL)
                 {
                     if (p.EmpID.Equals(pelMod.EmpID))
@@ -72,13 +72,14 @@ namespace PayrollSystem
                         pelMod.PendingBalance = (lo - dblPending).ToString();
                         pelMod.Loan = (lo - dblPending).ToString();
                         pelMod.TotalLoan = ((lo - dblPending) + dblInterests).ToString();
+                        current += Convert.ToDouble(pelMod.TotalLoan);
                     }
                 }
-
+                isAddedByAdmin = isAddedByAdmin + current;
                 lstPEL.Add(pelMod);
                 pelMod = new PELModel();
             }
-
+            lblTotalIS.Content = "Total: " + isAddedByAdmin.ToString("N0");
             conDB.closeConnection();
             return lstPEL;
         }

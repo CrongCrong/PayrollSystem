@@ -43,7 +43,7 @@ namespace PayrollSystem
             PEYModel peyMod = new PEYModel();
 
             queryString = "SELECT tblemployees.ID, concat(lastname,', ', firstname) as fullname, loandate, " +
-                "loans FROM (tblemployees INNER JOIN tblloanspey ON " +
+                "loans, interest FROM (tblemployees INNER JOIN tblloanspey ON " +
                 "tblemployees.ID = tblloanspey.empID) " +
                 "WHERE tblemployees.isDeleted = 0 AND tblloanspey.isDeleted = 0 " +
                 "AND tblemployees.ID = ?";
@@ -59,6 +59,7 @@ namespace PayrollSystem
                 DateTime dte = DateTime.Parse(reader["loandate"].ToString());
                 peyMod.LoanDate = dte.ToShortDateString();
                 peyMod.Loan = reader["loans"].ToString();
+                peyMod.Interest = reader["interest"].ToString();
                 peyMod.Remarks = "MANUAL-ADMIN";
                 lstPEY.Add(peyMod);
                 peyMod = new PEYModel();

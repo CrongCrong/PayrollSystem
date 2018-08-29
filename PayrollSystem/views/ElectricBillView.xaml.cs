@@ -47,7 +47,7 @@ namespace PayrollSystem.views
                 "tblelecbill.empID = tblemployees.ID) WHERE tblelecbill.isDeleted = 0 GROUP BY tblelecbill.empid";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
-
+            double isAddedByAdmin = 0;
             while (reader.Read())
             {
                 elecBill.empID = reader["empID"].ToString();
@@ -61,13 +61,14 @@ namespace PayrollSystem.views
                         current = current - Convert.ToDouble(ism.ElecBillToAdd);
                     }
                 }
-
+                isAddedByAdmin += current;
                 DateTime dte = DateTime.Parse(reader["dateadded"].ToString());
                 elecBill.DateAdded = dte.ToShortDateString();
                 elecBill.CurrentElecBill = current.ToString();
                 lstElecBill.Add(elecBill);
                 elecBill = new ElectricBillModel();
             }
+            lblTotalIS.Content = "Total: " + isAddedByAdmin.ToString("N0");
             conDB.closeConnection();
             return lstElecBill;
         }

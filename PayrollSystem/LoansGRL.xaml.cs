@@ -46,7 +46,8 @@ namespace PayrollSystem
                 "WHERE tblloansgrl.isDeleted = 0 GROUP BY tblloansgrl.empID";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
-
+            double isAddedbyAdmin = 0;
+            double current = 0;
             while (reader.Read())
             {
                 grlMode.ID = reader["ID"].ToString();
@@ -56,6 +57,7 @@ namespace PayrollSystem
                 DateTime dte = DateTime.Parse(reader["loandate"].ToString());
                 grlMode.LoanDate = dte.ToShortDateString();
 
+                current = 0;
                 foreach (GRLModel p in lstPendingGRL)
                 {
                     if (p.EmpID.Equals(grlMode.EmpID))
@@ -64,13 +66,14 @@ namespace PayrollSystem
                         double dblPending = Convert.ToDouble(p.Loan);
                         grlMode.PendingBalance = (lo - dblPending).ToString();
                         grlMode.Loan = (lo - dblPending).ToString();
+                        current += Convert.ToDouble(grlMode.Loan);
                     }
                 }
-
+                isAddedbyAdmin += current;
                 lstGRL.Add(grlMode);
                 grlMode = new GRLModel();
             }
-
+            lblTotalIS.Content = "Total: " + isAddedbyAdmin.ToString("N0");
             conDB.closeConnection();
             return lstGRL;
         }
@@ -237,6 +240,6 @@ namespace PayrollSystem
         {
             CheckIsNumeric(e);
         }
-        
+
     }
 }

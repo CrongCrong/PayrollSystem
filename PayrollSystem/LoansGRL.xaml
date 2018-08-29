@@ -46,8 +46,9 @@
         <DatePicker x:Name="datePEL" HorizontalAlignment="Left" Margin="667,74,0,0" VerticalAlignment="Top" Height="34" Width="201" FontSize="16"/>
         <Label x:Name="label_Copy1" Content="Employee:" HorizontalAlignment="Left" Margin="532,113,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
         <ComboBox x:Name="cmbEmployees" HorizontalAlignment="Left" Margin="667,113,0,0" VerticalAlignment="Top" Width="201" Height="34" FontSize="16" ItemsSource="{Binding EmployeeModel}" DisplayMemberPath="FullName" SelectedValuePath="ID"/>
-        <Label x:Name="label_Copy2" Content="Interest:" HorizontalAlignment="Left" Margin="532,191,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
-        <TextBox x:Name="txtInterest" HorizontalAlignment="Left" Height="34" Margin="667,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16" />
+        <Label x:Name="label_Copy2" Content="Interest:" HorizontalAlignment="Left" Margin="532,191,0,0" VerticalAlignment="Top" Width="135" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C" Visibility="Hidden"/>
+        <TextBox x:Name="txtInterest" HorizontalAlignment="Left" Height="34" Margin="667,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16" Visibility="Hidden"/>
+        <Label x:Name="lblTotalIS" Content="Total:" HorizontalAlignment="Left" Margin="208,282,0,0" VerticalAlignment="Top" FontSize="20" HorizontalContentAlignment="Right" Width="235" FontFamily="Arial" FontWeight="Bold" />
 
     </Grid>
 </controls:MetroWindow>

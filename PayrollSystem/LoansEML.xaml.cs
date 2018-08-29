@@ -46,7 +46,8 @@ namespace PayrollSystem
                 "WHERE tblloanseml.isDeleted = 0 GROUP BY tblloanseml.empID";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
-
+            double isAddedbyAdmin = 0;
+            double current = 0;
             while (reader.Read())
             {
                 emlMode.ID = reader["ID"].ToString();
@@ -60,6 +61,7 @@ namespace PayrollSystem
                 emlMode.TotalLoan = (Convert.ToDouble(emlMode.Loan) +
                     Convert.ToDouble(emlMode.Interest)).ToString();
                 emlMode.LoanDate = dte.ToShortDateString();
+                current = 0;
                 foreach (EMLModel p in lstPendingEML)
                 {
                     if (p.EmpID.Equals(emlMode.EmpID))
@@ -70,14 +72,15 @@ namespace PayrollSystem
                         emlMode.PendingBalance = (lo - dblPending).ToString();
                         emlMode.Loan = (lo - dblPending).ToString();
                         emlMode.TotalLoan = ((lo - dblPending) + dblInterests).ToString();
+                        current += Convert.ToDouble(emlMode.TotalLoan);
                     }
-                    
-                }
 
+                }
+                isAddedbyAdmin += current;
                 lstEML.Add(emlMode);
                 emlMode = new EMLModel();
             }
-
+            lblTotalIS.Content = "Total: " + isAddedbyAdmin.ToString("N0");
             conDB.closeConnection();
             return lstEML;
         }
@@ -266,11 +269,11 @@ namespace PayrollSystem
             {
                 dblloan = Math.Round(dblgetInterest * (5 / 100d));
             }
-            else if (dblgetInterest == 5000 )
+            else if (dblgetInterest == 5000)
             {
                 dblloan = Math.Round(dblgetInterest * (6 / 100d));
             }
-            
+
 
             return dblloan;
         }

@@ -41,37 +41,44 @@ namespace PayrollSystem
             PEYModel peyMod = new PEYModel();
 
             queryString = "SELECT tblloanspey.ID, empID, concat(firstname, ' ', lastname) as fullname, " +
-                "sum(loans) as loans, loandate FROM (tblloanspey INNER JOIN tblemployees ON " +
+                "sum(loans) as loans, loandate, interest FROM (tblloanspey INNER JOIN tblemployees ON " +
                 " tblloanspey.empID = tblemployees.ID) " +
-                "WHERE tblloanspey.isDeleted = 0 GROUP BY tblloanspey.empID";
+                "WHERE tblloanspey.isDeleted = 0 AND tblemployees.isDeleted = 0 GROUP BY tblloanspey.empID";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
-
+            double isAddedbyAdmin = 0;
+            double current = 0;
             while (reader.Read())
             {
                 peyMod.ID = reader["ID"].ToString();
                 peyMod.EmpID = reader["empID"].ToString();
                 peyMod.FullName = reader["fullname"].ToString();
                 peyMod.Loan = reader["loans"].ToString();
+                peyMod.Interest = reader["interest"].ToString();
+                peyMod.TotalLoan = (Convert.ToDouble(peyMod.Loan) +
+                    Convert.ToDouble(peyMod.Interest)).ToString();
                 DateTime dte = DateTime.Parse(reader["loandate"].ToString());
                 peyMod.LoanDate = dte.ToShortDateString();
-
+                current = 0;
                 foreach (PEYModel p in lstPendingPEY)
                 {
                     if (p.EmpID.Equals(peyMod.EmpID))
                     {
                         double lo = Convert.ToDouble(peyMod.Loan);
                         double dblPending = Convert.ToDouble(p.Loan);
+                        double dblInterests = Convert.ToDouble(peyMod.Interest);
                         peyMod.PendingBalance = (lo - dblPending).ToString();
                         peyMod.Loan = (lo - dblPending).ToString();
+                        peyMod.TotalLoan = ((lo - dblPending) + dblInterests).ToString();
+                        current += Convert.ToDouble(peyMod.TotalLoan);
                     }
 
                 }
-
+                isAddedbyAdmin += current;
                 lstPEY.Add(peyMod);
                 peyMod = new PEYModel();
             }
-
+            lblTotalIS.Content = "Total: " + isAddedbyAdmin.ToString("N0");
             conDB.closeConnection();
             return lstPEY;
         }
@@ -129,18 +136,18 @@ namespace PayrollSystem
             return lstPeyPending;
         }
 
-        private void saveRecord()
+        private void saveRecord(string interest)
         {
             conDB = new ConnectionDB();
-            queryString = "INSERT INTO tblloanspey (empID, loans, loandate, isDeleted) " +
-                "VALUES (?,?,?,0)";
+            queryString = "INSERT INTO tblloanspey (empID, loans, loandate, interest, isDeleted) " +
+                "VALUES (?,?,?,?,0)";
 
             parameters = new List<string>();
             parameters.Add(cmbEmployees.SelectedValue.ToString());
             parameters.Add(txtloan.Text);
             DateTime date = DateTime.Parse(datePEL.Text);
             parameters.Add(date.Year + "/" + date.Month + "/" + date.Day);
-
+            parameters.Add(interest);
             conDB.AddRecordToDatabase(queryString, parameters);
             conDB.closeConnection();
             conDB.writeLogFile("SAVE PEY RECORD: " + "EMPLOYEE ID: " + cmbEmployees.SelectedValue.ToString() + 
@@ -166,10 +173,10 @@ namespace PayrollSystem
         private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
             bool x = await checkFields();
-
-            if (x)
+            double dblInterest = await getInterest();
+            if (x && dblInterest != 0)
             {
-                saveRecord();
+                saveRecord(dblInterest.ToString());
                 clearFields();
                 dgvPEY.ItemsSource = loadDatagridDetails();
                 await this.ShowMessageAsync("RECORD SAVED", "Record successfully saved.");
@@ -181,6 +188,21 @@ namespace PayrollSystem
             clearFields();
             btnSave.Visibility = Visibility.Visible;
             btnUpdate.Visibility = Visibility.Hidden;
+        }
+
+        private async Task<double> getInterest()
+        {
+            double dblInt = 0;
+            double dblValPEY = Convert.ToDouble(txtloan.Text);
+            if (dblValPEY == 1000)
+            {
+                dblInt = 50;
+            }
+            else
+            {
+                await this.ShowMessageAsync("PEY", "PEY must be equal to 1000.");
+            }
+            return dblInt;
         }
 
         private async Task<bool> checkFields()

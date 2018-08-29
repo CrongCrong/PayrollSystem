@@ -47,7 +47,7 @@ namespace PayrollSystem.views
                 "tblsssloan.empID = tblemployees.ID) WHERE tblsssloan.isDeleted = 0 GROUP BY tblsssloan.empid";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
-
+            double isAddedByAdmin = 0;
             while (reader.Read())
             {
                 sss.empID = reader["empID"].ToString();
@@ -61,13 +61,14 @@ namespace PayrollSystem.views
                         current = current - Convert.ToDouble(ism.SSStoAdd);
                     }
                 }
-
+                isAddedByAdmin += current;
                 DateTime dte = DateTime.Parse(reader["dateadded"].ToString());
                 sss.DateAdded = dte.ToShortDateString();
                 sss.CurrentSSSLoan = current.ToString();
                 lstSSS.Add(sss);
                 sss = new SSSLoanModel();
             }
+            lblTotalIS.Content = "Total: " + isAddedByAdmin.ToString("N0");
             conDB.closeConnection();
             return lstSSS;
         }

@@ -25,5 +25,9 @@ namespace PayrollSystem.classes
 
         public string Remarks { get; set; }
 
+        public string Interest { get; set; }
+
+        public string TotalLoan { get; set; }
+
     }
 }

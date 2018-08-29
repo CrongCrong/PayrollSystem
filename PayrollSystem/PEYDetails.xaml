@@ -26,6 +26,14 @@
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
+                <DataGridTextColumn Header="Interest" Binding="{Binding Interest}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True" >
+                    <DataGridTextColumn.CellStyle>
+                        <Style>
+                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+
                 <DataGridTextColumn Header="Remarks" Binding="{Binding Remarks}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
