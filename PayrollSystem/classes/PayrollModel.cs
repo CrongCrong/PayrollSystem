@@ -38,6 +38,8 @@ namespace PayrollSystem.classes
 
         public string EML { get; set; }
 
+        public string ClinicLoan { get; set; }
+
         public string ElecBill { get; set; }
 
         public string CashAdvance { get; set; }
@@ -97,6 +99,8 @@ namespace PayrollSystem.classes
         public string TotalGRL { get; set; }
 
         public string TotalPEY { get; set; }
+
+        public string TotalClinicLoan { get; set; }
 
         public string TotalSSSLoan { get; set; }
 

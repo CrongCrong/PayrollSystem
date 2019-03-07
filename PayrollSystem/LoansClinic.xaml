@@ -1,0 +1,53 @@
+﻿<controls:MetroWindow x:Class="PayrollSystem.LoansClinic"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:PayrollSystem"
+        mc:Ignorable="d"
+        Title="CLINIC LOANS" Height="454.5" Width="955.5" Loaded="MetroWindow_Loaded" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
+                <GradientStop Color="#3CA55C" Offset="0"/>
+                <GradientStop Color="#B5AC49" Offset="0.567"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <DataGrid x:Name="dgvClinicLoan" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top" Height="203" Width="478" AutoGenerateColumns="False" BorderThickness="1" FontSize="16">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date" Binding="{Binding LoanDate}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True">
+
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="EMPLOYEE" Binding="{Binding FullName}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True">
+
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Total" Binding="{Binding TotalLoan}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True" >
+
+                </DataGridTextColumn>
+                <!-- <DataGridTextColumn Header="Remaining Balance" Binding="{Binding PendingBalance}" CanUserResize="False" FontFamily="Arial Rounded MT" IsReadOnly="True">
+
+                </DataGridTextColumn> -->
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button x:Name="btnDetails" Content="Details" HorizontalAlignment="Left" Margin="10,282,0,0" 
+                            VerticalAlignment="Top" Width="65" Height="65" Style="{DynamicResource MetroCircleButtonStyle}" Background="#2196f3" BorderBrush="Black" Click="btnDetails_Click" />
+        <Label x:Name="label" Content="Date:" HorizontalAlignment="Left" Margin="501,74,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <Label x:Name="label_Copy" Content="Existing Loan (Clinic):" HorizontalAlignment="Left" Margin="501,152,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <TextBox x:Name="txtloan" HorizontalAlignment="Left" Height="34" Margin="667,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" VerticalContentAlignment="Center" FontSize="16" PreviewTextInput="txtloan_PreviewTextInput"/>
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="733,282,0,0" 
+            VerticalAlignment="Top" Width="65" Height="65" Style="{DynamicResource MetroCircleButtonStyle}" Background="#2196f3" BorderBrush="Black" Click="btnSave_Click"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="803,282,0,0" 
+            VerticalAlignment="Top" Width="65" Height="65" Style="{DynamicResource MetroCircleButtonStyle}" Background="#2196f3" BorderBrush="Black" Click="btnCancel_Click"/>
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="733,282,0,0" 
+            VerticalAlignment="Top" Width="65" Height="65" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" Click="btnUpdate_Click" BorderBrush="Black"/>
+        <DatePicker x:Name="dateLoanClinic" HorizontalAlignment="Left" Margin="667,74,0,0" VerticalAlignment="Top" Height="34" Width="201" FontSize="16"/>
+        <Label x:Name="label_Copy1" Content="Employee:" HorizontalAlignment="Left" Margin="501,113,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Right" Height="34" VerticalContentAlignment="Center" FontSize="16" Background="#3CA55C"/>
+        <ComboBox x:Name="cmbEmployees" HorizontalAlignment="Left" Margin="667,113,0,0" VerticalAlignment="Top" Width="201" Height="34" FontSize="16" ItemsSource="{Binding EmployeeModel}" DisplayMemberPath="FullName" SelectedValuePath="ID"/>
+        <Label x:Name="lblTotalClinic" Content="Total:" HorizontalAlignment="Left" Margin="208,282,0,0" VerticalAlignment="Top" FontSize="20" HorizontalContentAlignment="Right" Width="235" FontFamily="Arial" FontWeight="Bold" />
+
+    </Grid>
+</controls:MetroWindow>

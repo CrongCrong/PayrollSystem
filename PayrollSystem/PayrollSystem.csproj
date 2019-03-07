@@ -110,6 +110,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="classes\ClinicLoanModel.cs" />
     <Compile Include="classes\CompanyModel.cs" />
     <Compile Include="classes\ElectricBillModel.cs" />
     <Compile Include="classes\EMLModel.cs" />
@@ -124,6 +125,9 @@
     <Compile Include="classes\PEYModel.cs" />
     <Compile Include="classes\SSSLoanModel.cs" />
     <Compile Include="classes\UserDisplay.cs" />
+    <Compile Include="ClinicLoansDetails.xaml.cs">
+      <DependentUpon>ClinicLoansDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ElecBillDetails.xaml.cs">
       <DependentUpon>ElecBillDetails.xaml</DependentUpon>
     </Compile>
@@ -138,6 +142,9 @@
     </Compile>
     <Compile Include="ISAPDetails.xaml.cs">
       <DependentUpon>ISAPDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoansClinic.xaml.cs">
+      <DependentUpon>LoansClinic.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoansEML.xaml.cs">
       <DependentUpon>LoansEML.xaml</DependentUpon>
@@ -205,6 +212,10 @@
     <Compile Include="views\UsersView.xaml.cs">
       <DependentUpon>UsersView.xaml</DependentUpon>
     </Compile>
+    <Page Include="ClinicLoansDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ElecBillDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -226,6 +237,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ISAPDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoansClinic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

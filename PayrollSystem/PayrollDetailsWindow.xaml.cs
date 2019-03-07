@@ -62,12 +62,7 @@ namespace PayrollSystem
                     }
                 }
                 recordID = payrollModel.ID;
-                //DateTime dte = DateTime.Parse(payrollModel.StartDate);
-                //startDate.Text = dte.ToShortDateString();
 
-                //dte = DateTime.Parse(payrollModel.EndDate);
-                //endDate.Text = dte.ToShortDateString();
-                //txtWage.Text = payrollModel.
                 startDate.Text = payrollModel.StartDate;
                 endDate.Text = payrollModel.EndDate;
                 txtWorkdays.Text = payrollModel.WorkDays;
@@ -115,6 +110,8 @@ namespace PayrollSystem
                     Convert.ToDouble(payrollModel.TotalElectBill).ToString("N0") : "0");
                 lblTotalSSSLoan.Content = (!string.IsNullOrEmpty(payrollModel.TotalSSSLoan) ?
                     Convert.ToDouble(payrollModel.TotalSSSLoan).ToString("N0") : "0");
+                lblTotalClinic.Content = (!string.IsNullOrEmpty(payrollModel.TotalClinicLoan) ?
+                    Convert.ToDouble(payrollModel.TotalClinicLoan).ToString("N0") : "0");        
 
                 btnSave.Visibility = Visibility.Hidden;
                 btnUpdate.Visibility = Visibility.Visible;
@@ -160,7 +157,7 @@ namespace PayrollSystem
                 "sssloan, isap, isavings, pey, pel, grl, eml, electricbill, cashadvance, " +
                 "absent, lates, undertime, others, remarks, firstname, lastname, netpay, workdays, trips, othours, ottotal, " +
                 "allowance, commission, particularothers, deductionothers, totalpel, totaleml, totalgrl, totalpey, " +
-                "totalelectbill, totalsssloan, totalis, totalisap FROM (tblpayroll INNER JOIN " +
+                "totalelectbill, totalsssloan, totalis, totalisap, clinicloan, totalclinicloan FROM (tblpayroll INNER JOIN " +
                 "tblemployees ON tblpayroll.empID = tblemployees.ID) WHERE tblpayroll.isDeleted = 0 " +
                 "AND tblemployees.isDeleted = 0 ORDER BY startdate DESC";
 
@@ -214,6 +211,8 @@ namespace PayrollSystem
                 payroll.TotalSSSLoan = reader["totalsssloan"].ToString();
                 payroll.TotalIS = reader["totalis"].ToString();
                 payroll.TotalISAP = reader["totalisap"].ToString();
+                payroll.TotalClinicLoan = reader["totalclinicloan"].ToString();
+                payroll.ClinicLoan = reader["clinicloan"].ToString();
                 lstPayroll.Add(payroll);
                 payroll = new PayrollModel();
 
@@ -293,6 +292,8 @@ namespace PayrollSystem
             payrollModelPayslip.TotalSSSLoan = (!string.IsNullOrEmpty(lblTotalSSSLoan.Content.ToString())) ? lblTotalSSSLoan.Content.ToString() : "0";
             payrollModelPayslip.TotalIS = (!string.IsNullOrEmpty(lblTotalIS.Content.ToString())) ? lblTotalIS.Content.ToString() : "0";
             payrollModelPayslip.TotalISAP = (!string.IsNullOrEmpty(lblTotalISAP.Content.ToString())) ? lblTotalISAP.Content.ToString() : "0";
+            payrollModelPayslip.TotalClinicLoan = (!string.IsNullOrEmpty(lblTotalClinic.Content.ToString())) ? lblTotalClinic.Content.ToString() : "0";
+
             LstPayrollModelPayslip.Add(payrollModelPayslip);
 
             payrollModelPayslip = new PayrollModel();
@@ -309,7 +310,7 @@ namespace PayrollSystem
                 "companyID, empsss, empphilhealth, emppagibig, empsssloan, emppel, empeml, empgrl, emppey," +
                 " empelecbill, empallowance, description, regworkingdays FROM " +
                 "(tblemployees INNER JOIN tblcompany ON tblemployees.companyID = tblcompany.ID) " +
-                "WHERE tblemployees.isDeleted = 0";
+                "WHERE tblemployees.isDeleted = 0 ORDER BY lastname ASC";
 
             MySqlDataReader reader = conDB.getSelectConnection(queryString, null);
 
@@ -369,6 +370,9 @@ namespace PayrollSystem
             //ISAP
             double dblTempISAP = getEmployeeTotalISAP(eeIDD);
             double dblTempISAP2 = getToBeAddedTotalISAP(eeIDD);
+            //CLINIC LOAN
+            double dblTempClinicLoan = getEmployeeClinicLoan(eeIDD);
+            double dblTempClinicLoan2 = getToBeSubtractedEmployeeClinicLoan(eeIDD);
 
             conDB = new ConnectionDB();
 
@@ -376,8 +380,8 @@ namespace PayrollSystem
                 " sssloan, isap, isavings, pey, pel, grl, eml, electricbill, cashadvance, absent, " +
                 "lates, undertime, others, remarks, netpay, ratehr, workdays, trips, othours, ottotal, " +
                 "allowance, commission, particularothers, deductionothers, totalpel, totaleml, totalgrl, " +
-                "totalpey, totalelectbill, totalsssloan, totalis, totalisap, isDeleted) VALUES " +
-                "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0)";
+                "totalpey, totalelectbill, totalsssloan, totalis, totalisap, clinicloan, totalclinicloan, isDeleted) VALUES " +
+                "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0)";
 
             List<string> paramsave = new List<string>();
 
@@ -450,6 +454,12 @@ namespace PayrollSystem
             dblTempISAP = (dblTempISAP + dblTempISAP2) + Convert.ToDouble(txtisap.Text);
             paramsave.Add(dblTempISAP.ToString());
             lblTotalISAP.Content = dblTempISAP.ToString("N0");
+
+            paramsave.Add(txtClinicLoan.Text);
+
+            dblTempClinicLoan = (dblTempClinicLoan - dblTempClinicLoan2);
+            paramsave.Add(dblTempClinicLoan.ToString());
+            lblTotalClinic.Content = dblTempClinicLoan.ToString("N0");
 
             conDB.AddRecordToDatabase(queryString, paramsave);
             conDB.closeConnection();
@@ -607,6 +617,7 @@ namespace PayrollSystem
             txtOvertimehours.Text = (!string.IsNullOrEmpty(txtOvertimehours.Text)) ? txtOvertimehours.Text : "0";
             txtAllowance.Text = (!string.IsNullOrEmpty(txtAllowance.Text)) ? txtAllowance.Text : "0";
             txtCommission.Text = (!string.IsNullOrEmpty(txtCommission.Text)) ? txtCommission.Text : "0";
+            txtClinicLoan.Text = (!string.IsNullOrEmpty(txtClinicLoan.Text)) ? txtClinicLoan.Text : "0";
 
             x = Convert.ToDouble(txtSSS.Text) + Convert.ToDouble(txtphilhealth.Text) + Convert.ToDouble(txtpagibig.Text)
                 + Convert.ToDouble(txtsssloan.Text) + Convert.ToDouble(txtisap.Text)
@@ -614,7 +625,7 @@ namespace PayrollSystem
                 Convert.ToDouble(txtgrl.Text) + Convert.ToDouble(txteml.Text) + Convert.ToDouble(txtelecbill.Text) +
                 Convert.ToDouble(txtca.Text) + Convert.ToDouble(txtabsent.Text) +
                 +Convert.ToDouble(txtLates.Text) + Convert.ToDouble(txtUndertime.Text) +
-                Convert.ToDouble(txtothersdeduct1.Text);
+                Convert.ToDouble(txtothersdeduct1.Text) + Convert.ToDouble(txtClinicLoan.Text);
 
             particulars = Convert.ToDouble(txtTrips.Text) + Convert.ToDouble(txtAllowance.Text)
                 + Convert.ToDouble(txtCommission.Text) + Convert.ToDouble(txtnotesdeduct1.Text)
@@ -703,9 +714,6 @@ namespace PayrollSystem
                 fillModelForReport();
                 await this.ShowMessageAsync("SAVE RECORD", "Record saved successfully.");
                 payRollView.dgvEmployees.ItemsSource = loadDataGridDetails();
-                //clearFields();
-                //btnSave.Visibility = Visibility.Hidden;
-                //btnUpdate.Visibility = Visibility.Visible;
             }
         }
 
@@ -1462,10 +1470,8 @@ namespace PayrollSystem
             conDB = new ConnectionDB();
             double dblPending = 0;
             queryString = "SELECT empID, sum(electricbill) as electricbill FROM tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
-
             parameters = new List<string>();
             parameters.Add(eID);
-
             MySqlDataReader reader = conDB.getSelectConnection(queryString, parameters);
 
             while (reader.Read())
@@ -1473,7 +1479,6 @@ namespace PayrollSystem
                 dblPending = (!string.IsNullOrEmpty(reader["electricbill"].ToString())) ?
                      Convert.ToDouble(reader["electricbill"].ToString()) : 0;
             }
-
             conDB.closeConnection();
             return dblPending;
         }
@@ -1654,5 +1659,53 @@ namespace PayrollSystem
             return updatedVal;
         }
 
+        private double getEmployeeClinicLoan(string eID)
+        {
+            conDB = new ConnectionDB();
+            double dblLoan = 0;
+            queryString = "SELECT tblloansclinic.ID, empID, concat(firstname, ' ', lastname) as fullname, " +
+                "sum(loans) as loans, loandate FROM (tblloansclinic INNER JOIN tblemployees ON " +
+                " tblloansclinic.empID = tblemployees.ID) " +
+                "WHERE tblloansclinic.isDeleted = 0 AND empID = ?";
+
+            parameters = new List<string>();
+            parameters.Add(eID);
+
+            MySqlDataReader reader = conDB.getSelectConnection(queryString, parameters);
+
+            while (reader.Read())
+            {
+                dblLoan = (!string.IsNullOrEmpty(reader["loans"].ToString())) ?
+                     Convert.ToDouble(reader["loans"].ToString()) : 0;
+            }
+            conDB.closeConnection();
+            return dblLoan;
+        }
+
+        private double getToBeSubtractedEmployeeClinicLoan(string eID)
+        {
+            conDB = new ConnectionDB();
+            double dblPending = 0;
+            queryString = "SELECT empID, sum(clinicloan) as clinicloanpending FROM tblpayroll WHERE tblpayroll.isDeleted = 0 AND empID = ?";
+
+            parameters = new List<string>();
+            parameters.Add(eID);
+
+            MySqlDataReader reader = conDB.getSelectConnection(queryString, parameters);
+
+            while (reader.Read())
+            {
+                dblPending = (!string.IsNullOrEmpty(reader["clinicloanpending"].ToString())) ?
+                     Convert.ToDouble(reader["clinicloanpending"].ToString()) : 0;
+            }
+
+            conDB.closeConnection();
+            return dblPending;
+        }
+
+        private void txtClinicLoan_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            CheckIsNumeric(e);
+        }
     }
 }

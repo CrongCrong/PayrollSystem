@@ -41,5 +41,11 @@ namespace PayrollSystem.views
             LoansPEY pe = new LoansPEY();
             pe.ShowDialog();
         }
+
+        private void btnClinic_Click(object sender, RoutedEventArgs e)
+        {
+            LoansClinic lc = new LoansClinic();
+            lc.ShowDialog();
+        }
     }
 }

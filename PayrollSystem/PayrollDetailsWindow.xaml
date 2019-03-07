@@ -116,6 +116,9 @@
         <Label x:Name="lblTotalSSSLoan" Content="" HorizontalAlignment="Left" Margin="206,559,0,0" VerticalAlignment="Top" Width="69" Visibility="Hidden"/>
         <Label x:Name="lblTotalIS" Content="" HorizontalAlignment="Left" Margin="206,559,0,0" VerticalAlignment="Top" Width="69" Visibility="Hidden"/>
         <Label x:Name="lblTotalISAP" Content="" HorizontalAlignment="Left" Margin="206,559,0,0" VerticalAlignment="Top" Width="69" Visibility="Hidden"/>
+        <Label x:Name="lblTotalClinic" Content="" HorizontalAlignment="Left" Margin="206,559,0,0" VerticalAlignment="Top" Width="69" Visibility="Hidden"/>
+        <Label x:Name="label1_Copy30" Content="Clinic Loan:" HorizontalAlignment="Left" Margin="430,427,0,0" VerticalAlignment="Top" Height="33" Width="107" HorizontalContentAlignment="Right" FontSize="15" FontFamily="Arial"/>
+        <TextBox x:Name="txtClinicLoan" HorizontalAlignment="Left" Height="33" Margin="537,427,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontSize="15" Text="0" PreviewTextInput="txtClinicLoan_PreviewTextInput" />
 
     </Grid>
 </controls:MetroWindow>

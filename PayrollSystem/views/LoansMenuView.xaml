@@ -8,12 +8,14 @@
     <Grid>
         <Button x:Name="btnPel" Content="PEL" HorizontalAlignment="Left" Margin="203,31,0,0"
             VerticalAlignment="Top" Width="170" Height="170" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" FontSize="24" Click="btnPel_Click" />
-        <Button x:Name="btnEml" Content="EML" HorizontalAlignment="Left" Margin="504,31,0,0"
+        <Button x:Name="btnEml" Content="EML" HorizontalAlignment="Left" Margin="421,31,0,0"
             VerticalAlignment="Top" Width="170" Height="170" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" FontSize="24" Click="btnEml_Click" />
         <Button x:Name="btnGrl" Content="GRL" HorizontalAlignment="Left" Margin="203,227,0,0"
             VerticalAlignment="Top" Width="170" Height="170" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" FontSize="24" Click="btnGrl_Click" />
-        <Button x:Name="btnPey" Content="PEY" HorizontalAlignment="Left" Margin="504,227,0,0"
+        <Button x:Name="btnPey" Content="PEY" HorizontalAlignment="Left" Margin="421,227,0,0"
             VerticalAlignment="Top" Width="170" Height="170" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" FontSize="24" Click="btnPey_Click" />
+        <Button x:Name="btnClinic" Content="CLINIC" HorizontalAlignment="Left" Margin="633,31,0,0"
+            VerticalAlignment="Top" Width="170" Height="170" Style="{DynamicResource MetroCircleButtonStyle}" Background="#FF2196F3" BorderBrush="Black" FontSize="24" Click="btnClinic_Click" />
 
     </Grid>
 </UserControl>

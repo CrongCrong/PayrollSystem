@@ -48,7 +48,7 @@ namespace PayrollSystem.views
                 "sssloan, isap, isavings, pey, pel, grl, eml, electricbill, cashadvance, " +
                 "absent, lates, undertime, others, remarks, firstname, lastname, netpay, workdays, trips, othours, ottotal, " +
                 "allowance, commission, particularothers, deductionothers, totalpel, totaleml, totalgrl, totalpey, " +
-                "totalelectbill, totalsssloan, totalis, totalisap FROM (tblpayroll INNER JOIN " +
+                "totalelectbill, totalsssloan, totalis, totalisap, clinicloan, totalclinicloan FROM (tblpayroll INNER JOIN " +
                 "tblemployees ON tblpayroll.empID = tblemployees.ID) WHERE tblpayroll.isDeleted = 0 " +
                 "AND tblemployees.isDeleted = 0 ";
 
@@ -131,6 +131,9 @@ namespace PayrollSystem.views
                 payroll.TotalSSSLoan = reader["totalsssloan"].ToString();
                 payroll.TotalIS = reader["totalis"].ToString();
                 payroll.TotalISAP = reader["totalisap"].ToString();
+                payroll.ClinicLoan = reader["clinicloan"].ToString();
+                payroll.TotalClinicLoan = reader["totalclinicloan"].ToString();
+
                 lstSearching.Add(payroll);
                 payroll = new PayrollModel();
             }
@@ -215,7 +218,7 @@ namespace PayrollSystem.views
                 "sssloan, isap, isavings, pey, pel, grl, eml, electricbill, cashadvance, " +
                 "absent, lates, undertime, others, remarks, firstname, lastname, netpay, workdays, trips, othours, ottotal, " +
                 "allowance, commission, particularothers, deductionothers, totalpel, totaleml, totalgrl, totalpey, " +
-                "totalelectbill, totalsssloan, totalis, totalisap FROM (tblpayroll INNER JOIN " +
+                "totalelectbill, totalsssloan, totalis, totalisap, clinicloan, totalclinicloan FROM (tblpayroll INNER JOIN " +
                 "tblemployees ON tblpayroll.empID = tblemployees.ID) WHERE tblpayroll.isDeleted = 0 " +
                 "AND tblemployees.isDeleted = 0 ORDER BY startdate DESC";
 
@@ -269,6 +272,8 @@ namespace PayrollSystem.views
                 payroll.TotalSSSLoan = reader["totalsssloan"].ToString();
                 payroll.TotalIS = reader["totalis"].ToString();
                 payroll.TotalISAP = reader["totalisap"].ToString();
+                payroll.TotalClinicLoan = reader["totalclinicloan"].ToString();
+                payroll.ClinicLoan = reader["clinicloan"].ToString();
                 lstPayroll.Add(payroll);
                 payroll = new PayrollModel();
             }
